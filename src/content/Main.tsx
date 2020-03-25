@@ -70,11 +70,11 @@ const Main = () => {
                 res.local_recovered
               ],
               backgroundColor: [
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)'
+                '#3498DB', // blue
+                '#F1C40F', // yellow
+                '#8E44AD', // purple
+                '#CB4335', // red
+                "#27AE60" // green
               ],
               borderWidth: 0
             }
@@ -98,10 +98,10 @@ const Main = () => {
                 res.global_recovered
               ],
               backgroundColor: [
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)'
+                '#3498DB', // blue
+                '#8E44AD', // purple
+                '#CB4335', // red
+                "#27AE60" // green
               ],
               borderWidth: 0
             }

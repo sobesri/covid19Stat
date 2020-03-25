@@ -6,6 +6,13 @@ import { Chart } from 'primereact/chart';
 
 import moment from 'moment';
 
+interface Case {
+  total: number,
+  active: number,
+  recovered: number,
+  dead: number
+}
+
 const Main = () => {
   const [data, setData] = useState<Response_data>();
   const [updatedDate, setDate] = useState<Date>(new Date());
@@ -50,29 +57,22 @@ const Main = () => {
 
         setData(d);
 
-
         const gDataLocal = {
           labels: [
-            'New',
-            'In Hospital',
+            'Active',
             'Deaths',
-            'New Deaths',
             'Recovered'
           ],
           datasets: [
             {
               label: 'Local Cases',
               data: [
-                res.local_new_cases,
-                res.local_total_number_of_individuals_in_hospitals,
-                res.local_deaths,
-                res.local_new_deaths,
-                res.local_recovered
+                d.local_total_cases - d.local_recovered - d.local_deaths,
+                d.local_deaths,
+                d.local_recovered
               ],
               backgroundColor: [
-                '#3498DB', // blue
                 '#F1C40F', // yellow
-                '#8E44AD', // purple
                 '#CB4335', // red
                 "#27AE60" // green
               ],
@@ -83,23 +83,20 @@ const Main = () => {
 
         const gDataGlobal = {
           labels: [
-            'New',
+            'Active',
             'Deaths',
-            'New Deaths',
             'Recovered'
           ],
           datasets: [
             {
-              label: 'Local Cases',
+              label: 'Global Cases',
               data: [
-                res.global_new_cases,
-                res.global_deaths,
-                res.global_new_deaths,
-                res.global_recovered
+                d.global_total_cases - d.global_recovered - d.global_deaths,
+                d.global_deaths,
+                d.global_recovered
               ],
               backgroundColor: [
-                '#3498DB', // blue
-                '#8E44AD', // purple
+                '#F1C40F', // yellow
                 '#CB4335', // red
                 "#27AE60" // green
               ],
@@ -148,6 +145,11 @@ const Main = () => {
             <h2>Local Cases</h2>
             <h3>{data && data.local_total_cases}</h3>
             <p>total confirmed cases</p>
+            <p>
+              {data &&
+                <small>( New cases: {data.local_new_cases}, New deaths: {data.local_new_deaths}, In Hospital: {data.local_total_number_of_individuals_in_hospitals} )</small>
+              }
+            </p>
           </div>
           <div className={'chart'}>
             <Chart width="" type="pie" data={dataLocal} options={chartOptions} />
@@ -158,6 +160,11 @@ const Main = () => {
             <h2>Global Cases</h2>
             <h3>{data && data.global_total_cases}</h3>
             <p>total confirmed cases</p>
+            <p>
+              {data &&
+                <small>( New cases: {data.global_new_cases}, New deaths: {data.global_new_deaths} )</small>
+              }
+            </p>
           </div>
           <div className={'chart'}>
             <Chart width="" type="pie" data={dataGlobal} options={chartOptions} />

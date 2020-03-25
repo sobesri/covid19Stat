@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sobesri.github.io/covid19Stat",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -10,6 +11,7 @@
     "@types/reactstrap": "^8.4.2",
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
+    "gh-pages": "^2.2.0",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "primereact": "^4.1.2",
@@ -24,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -2,6 +2,10 @@
   background: black;
   padding: 65px;
   min-height: 100vh;
+
+  @media screen and (max-width: 600px) {
+    padding: 65px 30px;
+  }
 }
 
 .header-row {
@@ -13,6 +17,7 @@
 
 .refresh-button-panel {
   text-align: center;
+  margin: 10px 0px;
 
   i {
     position: absolute;
@@ -41,6 +46,24 @@
   text-align: center;
   color: grey;
 
+  .column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    border: 10px;
+    border-color: white;
+  }
+
+  .chart {
+    margin: 0px 12.5%;
+  }
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
   .header {
     margin-top: 20px;
     font-weight: 600;
@@ -48,17 +71,20 @@
     text-align: center;
   }
 
-  .footer {
-    margin-top: 20px;
-    text-align: center;
+  .title {
+    padding-bottom: 0px;
+  }
 
-    p {
-      font-size: 16px;
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+    }
+
+    .chart {
+      margin: 0px;
     }
   }
 }
-
-
 
 .wrapper-box {
   padding: 15px;

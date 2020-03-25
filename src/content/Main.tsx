@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../services/api.service';
 import { Response_data, Full_response_data } from '../types';
-import { Col, Row, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
 import { Chart } from 'primereact/chart';
 
 import moment from 'moment';
@@ -113,47 +113,57 @@ const Main = () => {
       });
   }
 
+  let chartOptions = {
+    maintainAspectRatio: true,
+    aspectRatio: 1,
+    legend: {
+      position: 'bottom'
+    },
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+      }
+    }
+  };
 
   return <>
     <div className="header-row">
-      <h1>Covid-19 (Sri Lanka)</h1>
+      <h1>Covid-19</h1>
+      <h2>Sri Lanka</h2>
       <p>
         Updated at {moment(new Date(updatedDate)).format('ddd, MMM D hh:mm:ss')}
       </p>
       Data from <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
     </div>
-    <Row className="refresh-button-panel">
-      <Col>
-        <Button type="button" onClick={() => getData()}>Reload data</Button>
-      </Col>
-    </Row>
-    <div >
-      <Row className="data-panel">
-        <Col>
-          <Col md={12} className="header">
-            Local Cases
-          </Col>
-          <Col md={12}>
-            <Chart width="" type="pie" data={dataLocal} />
-          </Col>
-          <Col className="footer">
-            <h2>{data && data.local_total_cases}</h2>
+    <div className="refresh-button-panel">
+      <Button type="button" onClick={() => getData()}>Reload data</Button>
+    </div>
+    <div className="data-panel">
+      <div className="row">
+        <div className="column">
+          <div className={"title"}>
+            <h2>Local Cases</h2>
+            <h3>{data && data.local_total_cases}</h3>
             <p>total confirmed cases</p>
-          </Col>
-        </Col>
-        <Col>
-          <Col md={12} className="header">
-            Global Cases
-          </Col>
-          <Col md={12}>
-            <Chart width="" type="pie" data={dataGlobal} />
-          </Col>
-          <Col className="footer">
-            <h2>{data && data.global_total_cases}</h2>
+          </div>
+          <div className={'chart'}>
+            <Chart width="" type="pie" data={dataLocal} options={chartOptions} />
+          </div>
+        </div>
+        <div className="column">
+          <div className={"title"}>
+            <h2>Global Cases</h2>
+            <h3>{data && data.global_total_cases}</h3>
             <p>total confirmed cases</p>
-          </Col>
-        </Col>
-      </Row>
+          </div>
+          <div className={'chart'}>
+            <Chart width="" type="pie" data={dataGlobal} options={chartOptions} />
+          </div>
+        </div>
+      </div>
     </div>
   </>
 }

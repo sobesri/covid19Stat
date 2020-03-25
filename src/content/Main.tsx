@@ -129,11 +129,11 @@ const Main = () => {
   return <>
     <div className="header-row">
       <h1>Covid-19</h1>
-      <h2>Sri Lanka</h2>
+      <h3>Sri Lanka</h3>
       <p>
-        Updated at {moment(new Date(updatedDate)).format('ddd, MMM D hh:mm:ss')}
+        Updated at {moment(new Date(updatedDate)).format('ddd, MMM D hh:mm:ss')}<br />
+        Data from <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
       </p>
-      Data from <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
     </div>
     <div className="refresh-button-panel">
       <Button type="button" onClick={() => getData()}>Reload data</Button>
@@ -142,13 +142,12 @@ const Main = () => {
       <div className="row">
         <div className="column">
           <div className={"title"}>
-            <h2>Local Cases</h2>
-            <h3>{data && data.local_total_cases}</h3>
-            <p>total confirmed cases</p>
+            <h2>Local Cases: {data && data.local_total_cases}</h2>
             <p>
-              {data &&
-                <small>( New cases: {data.local_new_cases}, New deaths: {data.local_new_deaths}, In Hospital: {data.local_total_number_of_individuals_in_hospitals} )</small>
-              }
+              <small>
+                {data &&
+                  `( Total cases: ${data.local_total_cases}, New cases: ${data.local_new_cases}, New deaths: ${data.local_new_deaths}, In Hospital: ${data.local_total_number_of_individuals_in_hospitals} )`}
+              </small>
             </p>
           </div>
           <div className={'chart'}>
@@ -157,13 +156,12 @@ const Main = () => {
         </div>
         <div className="column">
           <div className={"title"}>
-            <h2>Global Cases</h2>
-            <h3>{data && data.global_total_cases}</h3>
-            <p>total confirmed cases</p>
+            <h2>Global Cases: {data && data.global_total_cases}</h2>
             <p>
-              {data &&
-                <small>( New cases: {data.global_new_cases}, New deaths: {data.global_new_deaths} )</small>
-              }
+              <small>
+                {data &&
+                  `( Total cases: ${data.global_total_cases}, New cases: ${data.global_new_cases}, New deaths: ${data.global_new_deaths} )`}
+              </small>
             </p>
           </div>
           <div className={'chart'}>

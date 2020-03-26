@@ -205,84 +205,94 @@ const Main = () => {
   }
 
   return <>
-    <div className="header-row">
-      <h1>Covid-19</h1>
-      <h3>Sri Lanka</h3>
-      <p>
-        Updated at {moment(new Date(updatedDate)).format('ddd, MMM D hh:mm:ss')}<br />
+    <div id="local">
+      <div className="header-row">
+        <h1>Covid-19</h1>
+        <h3>Sri Lanka</h3>
+        <p>
+          Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}<br />
         Data from <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
-      </p>
-    </div>
-    <div className="row-panel">
-      <Button className="btn" type="button" onClick={() => getData()}>Reload data</Button>
-    </div>
-    <div className="data-panel">
-      <div className="row">
-        <div className="column">
-          <div className={"title"}>
-            <h2>Local Cases: {data && data.local_total_cases}</h2>
-            <p>
-              <small>
-                {data &&
-                  `( Total cases: ${data.local_total_cases}, New cases: ${data.local_new_cases}, New deaths: ${data.local_new_deaths}, In Hospital: ${data.local_total_number_of_individuals_in_hospitals} )`}
-              </small>
-            </p>
+        </p>
+      </div>
+      <div className="row-panel">
+        <Button className="btn" type="button" onClick={() => getData()}>Reload data</Button>
+      </div>
+      <div className="data-panel">
+        <div className="row">
+          <div className="column">
+            <div className={"title"}>
+              <h2>Local Cases: {data && data.local_total_cases}</h2>
+              <p>
+                <small>
+                  {data &&
+                    `( Total cases: ${data.local_total_cases}, New cases: ${data.local_new_cases}, New deaths: ${data.local_new_deaths}, In Hospital: ${data.local_total_number_of_individuals_in_hospitals} )`}
+                </small>
+              </p>
+            </div>
+            <div className={'chart'}>
+              <Chart width="" type="pie" data={dataLocal} options={chartOptions} />
+            </div>
           </div>
-          <div className={'chart'}>
-            <Chart width="" type="pie" data={dataLocal} options={chartOptions} />
-          </div>
-        </div>
-        <div className="column">
-          <div className={"title"}>
-            <h2>Global Cases: {data && data.global_total_cases}</h2>
-            <p>
-              <small>
-                {data &&
-                  `( Total cases: ${data.global_total_cases}, New cases: ${data.global_new_cases}, New deaths: ${data.global_new_deaths} )`}
-              </small>
-            </p>
-          </div>
-          <div className={'chart'}>
-            <Chart width="" type="pie" data={dataGlobal} options={chartOptions} />
+          <div className="column">
+            <div className={"title"}>
+              <h2>Global Cases: {data && data.global_total_cases}</h2>
+              <p>
+                <small>
+                  {data &&
+                    `( Total cases: ${data.global_total_cases}, New cases: ${data.global_new_cases}, New deaths: ${data.global_new_deaths} )`}
+                </small>
+              </p>
+            </div>
+            <div className={'chart'}>
+              <Chart width="" type="pie" data={dataGlobal} options={chartOptions} />
+            </div>
           </div>
         </div>
       </div>
+      <div className="row-panel">
+        <a href="#global"><Button className="btn globalView" type="button">Jump to Global</Button></a>
+      </div>
     </div>
-    {countrySummaries &&
-      <div className="data-panel margin-top-lg">
-        <div className="header-row">
-          <h1>Covid-19</h1>
-          <h3>Global Summaries</h3>
-          <p>
-            Updated at {moment(new Date(globalUpdateTime)).format('ddd, MMM D hh:mm:ss')}<br />
+    <div id="global">
+      <div className="padding-top-lg">
+      </div>
+      {countrySummaries &&
+        <div>
+          <div className="header-row">
+            <h1>Covid-19</h1>
+            <h3>Global Summaries</h3>
+            <p>
+              Updated at {moment.utc(new Date(globalUpdateTime)).local().format('ddd, MMM D hh:mm:ss a')}<br />
           Data from <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
-          </p>
-        </div>
-        <div className="row-panel">
-          <div className="row">
-            <Input value={searchTerm || ''} onChange={((e: any) => e.target && setSearchterm(e.target.value))} placeholder="Enter Search Term here" />
+            </p>
           </div>
+          <div className="row-panel">
+            <div className="row">
+              <Input value={searchTerm || ''} onChange={((e: any) => e.target && setSearchterm(e.target.value))} placeholder="Enter Search Term here" />
+            </div>
+          </div>
+          <div className="data-panel">
+            {getFilteredResults(countrySummaries)}
+          </div>
+          {selectedSummary &&
+            <Modal
+              isOpen={selectedSummary !== undefined}
+              toggle={() => setSelected(undefined)}
+            >
+              <ModalHeader className="chart-modal" toggle={() => setSelected(undefined)}>
+                <h2>{selectedSummary.Country}</h2>
+              </ModalHeader>
+              <ModalBody className="chart-modal">
+                {generateChartModal(selectedSummary)}
+              </ModalBody>
+              <ModalFooter className="chart-modal footer">
+                <Button className="btn" type="button" onClick={() => setSelected(undefined)}>Close Chart</Button>
+              </ModalFooter>
+            </Modal>
+          }
         </div>
-        {getFilteredResults(countrySummaries)}
-
-        {selectedSummary &&
-          <Modal
-            isOpen={selectedSummary !== undefined}
-            toggle={() => setSelected(undefined)}
-          >
-            <ModalHeader className="chart-modal" toggle={() => setSelected(undefined)}>
-              <h2>{selectedSummary.Country}</h2>
-            </ModalHeader>
-            <ModalBody className="chart-modal">
-              {generateChartModal(selectedSummary)}
-            </ModalBody>
-            <ModalFooter className="chart-modal footer">
-              <Button className="btn" type="button" onClick={() => setSelected(undefined)}>Close Chart</Button>
-            </ModalFooter>
-          </Modal>
-        }
-      </div>
-    }
+      }
+    </div>
   </>
 }
 

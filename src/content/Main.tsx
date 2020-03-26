@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { apiService } from '../services/api.service';
 import { Response_data, Full_response_data, CountrySummaryDto, Full_response_data_global } from '../types';
 import { Button, ModalHeader, Modal, ModalBody, ModalFooter, Input, Row, Col } from 'reactstrap';
@@ -38,6 +38,35 @@ const Main = () => {
       clearTimeout(timer);
     };
   }, [time]);
+
+  useLayoutEffect(() => {
+    const handleScroll = () => {
+      var goToTop = document.getElementById("goToTopButton");
+      var goToGlobal = document.getElementById("goToGlobalButton");
+      if (goToTop && goToGlobal) {
+        if (window.scrollY > 500)
+          goToGlobal.style.display = "none";
+        else
+          goToGlobal.style.display = "block";
+        if (window.scrollY > 900)
+          goToTop.style.display = "block";
+
+        else
+          goToTop.style.display = "none";
+
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const onGoToGlobalClicked = () => {
+    var globalPanel = document.getElementById("global");
+    document.body.scrollTop = globalPanel ? globalPanel.offsetTop : 0;
+    document.documentElement.scrollTop = globalPanel ? globalPanel.offsetTop : 0;
+  }
 
   const getData = () => {
     apiService.getStatistics_HPB()
@@ -266,8 +295,7 @@ const Main = () => {
           </div>
         </div>
       </div>
-      <div className="row-panel">
-        <a href="#global"><Button className="btn globalView" type="button">Jump to Global</Button></a>
+      <div className="padding-top-xlg">
       </div>
     </div>
     <div id="global">
@@ -310,6 +338,25 @@ const Main = () => {
         </div>
       }
     </div>
+    <Button
+      type="button"
+      id="goToTopButton"
+      onClick={() => {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }}
+      title="Go to top"
+    >
+      Top
+    </Button>
+    <Button
+      type="button"
+      id="goToGlobalButton"
+      onClick={onGoToGlobalClicked}
+      title="Go to top"
+    >
+      Global
+    </Button>
   </>
 }
 

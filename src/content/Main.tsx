@@ -154,6 +154,9 @@ const Main = () => {
     aspectRatio: 1,
     rotation: 0,
     legend: {
+      labels: {
+        fontColor: '#fff'
+      },
       position: 'bottom'
     },
     layout: {

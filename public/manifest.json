@@ -2,9 +2,9 @@
   "short_name": "Covid-19 Status",
   "name": "Pet project page to show the Covid-19 outbreak status",
   "icons": [{
-    "src": "favicon2.ico",
+    "src": "favicon.ico",
     "sizes": "64x64 32x32 24x24 16x16",
-    "type": "image/x-icon"
+    "type": "image/icon"
   }],
   "start_url": ".",
   "display": "standalone",

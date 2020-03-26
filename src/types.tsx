@@ -16,3 +16,19 @@ export interface Response_data {
 export interface Full_response_data extends Response_data {
   update_date_time: string;
 }
+
+export interface Full_response_data_global {
+  Countries: CountrySummaryDto[];
+  Date: Date;
+}
+
+export interface CountrySummaryDto {
+  Country: string,
+  NewConfirmed: number,
+  NewDeaths: number,
+  NewRecovered: number,
+  Slug: string,
+  TotalConfirmed: number,
+  TotalDeaths: number,
+  TotalRecovered: number
+}

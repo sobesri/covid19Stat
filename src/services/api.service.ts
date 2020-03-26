@@ -1,29 +1,40 @@
 import * as queryString from 'query-string';
 
-import axios, { AxiosRequestConfig, Method } from 'axios';
-import { Full_response_data } from '../types';
+import axios, { AxiosRequestConfig, Method, AxiosInstance } from 'axios';
+import { Full_response_data, Full_response_data_global } from '../types';
 
-var instance = axios.create({
+var instanceSl = axios.create({
   baseURL: 'https://hpb.health.gov.lk/api/',
 });
+
+var instanceGlobal = axios.create({
+  baseURL: 'https://api.covid19api.com/'
+})
+
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';
 
 export const apiService = {
   get,
-  getStatistics
+  getStatistics_HPB,
+  getStatistics_Global
 }
 
-function getStatistics() {
-  return get<Full_response_data>('', 'get-current-statistical', [])
+function getStatistics_HPB() {
+  return get<Full_response_data>(instanceSl, '', 'get-current-statistical', [])
     .then((res: any) => res.data);
 }
 
-function get<T>(controller: string, action: string = '', urlParams: string[] = [], queryParams: any = null) {
-  return apiRequest<T>('get', controller, action, null, urlParams, queryParams);
+function getStatistics_Global() {
+  return get<Full_response_data_global>(instanceGlobal, '', 'summary', [])
+    .then((res: any) => res);
 }
 
-function apiRequest<T>(method: Method, controller: string, action: string = '', data: any, urlParams: string[] = [],
+function get<T>(instance: AxiosInstance, controller: string, action: string = '', urlParams: string[] = [], queryParams: any = null) {
+  return apiRequest<T>(instance, 'get', controller, action, null, urlParams, queryParams);
+}
+
+function apiRequest<T>(instance: AxiosInstance, method: Method, controller: string, action: string = '', data: any, urlParams: string[] = [],
   queryParams: any = null) {
   let url = createUrl(controller, action, urlParams, queryParams);
   let options = createRequestOptions(url, method, data);

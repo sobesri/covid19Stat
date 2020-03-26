@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../services/api.service';
-import { Response_data, Full_response_data } from '../types';
-import { Button } from 'reactstrap';
+import { Response_data, Full_response_data, CountrySummaryDto, Full_response_data_global } from '../types';
+import { Button, ModalHeader, Modal, ModalBody, ModalFooter, Input } from 'reactstrap';
 import { Chart } from 'primereact/chart';
 
 import moment from 'moment';
@@ -16,9 +16,13 @@ interface Case {
 const Main = () => {
   const [data, setData] = useState<Response_data>();
   const [updatedDate, setDate] = useState<Date>(new Date());
+  const [globalUpdateTime, setGlobalUpdateTime] = useState<Date>(new Date());
   const [dataLocal, setDataLocal] = useState<any>();
   const [dataGlobal, setDataGlobal] = useState<any>();
   const [time, setTime] = useState(new Date().getTime());
+  const [countrySummaries, setSummaries] = useState<CountrySummaryDto[]>();
+  const [selectedSummary, setSelected] = useState<CountrySummaryDto>();
+  const [searchTerm, setSearchterm] = useState();
 
   useEffect(() => {
     getData();
@@ -36,7 +40,7 @@ const Main = () => {
   }, [time]);
 
   const getData = () => {
-    apiService.getStatistics()
+    apiService.getStatistics_HPB()
       .then((res: Full_response_data) => {
         setDate(new Date(res.update_date_time));
 
@@ -108,6 +112,12 @@ const Main = () => {
         setDataLocal(gDataLocal);
         setDataGlobal(gDataGlobal);
       });
+
+    apiService.getStatistics_Global()
+      .then((res: Full_response_data_global) => {
+        setSummaries(res.Countries);
+        setGlobalUpdateTime(res.Date)
+      })
   }
 
   let chartOptions = {
@@ -126,6 +136,74 @@ const Main = () => {
     }
   };
 
+  const generateChartModal = (summary: CountrySummaryDto) => {
+    let data = {
+      labels: [
+        'Active',
+        'Deaths',
+        'Recovered'
+      ],
+      datasets: [
+        {
+          label: 'Local Cases',
+          data: [
+            summary.TotalConfirmed - summary.TotalRecovered - summary.TotalDeaths,
+            summary.TotalDeaths,
+            summary.TotalRecovered
+          ],
+          backgroundColor: [
+            '#F1C40F', // yellow
+            '#CB4335', // red
+            "#27AE60" // green
+          ],
+          borderWidth: 0
+        }
+      ]
+    };
+
+    return <Chart width="" type="pie" data={data} options={chartOptions} />
+  }
+
+  const compare = (a: CountrySummaryDto, b: CountrySummaryDto) => {
+    if (a.TotalConfirmed < b.TotalConfirmed) {
+      return 1;
+    }
+    if (a.TotalConfirmed > b.TotalConfirmed) {
+      return -1;
+    }
+    return 0;
+  }
+
+  const getFilteredResults = (countrySummaries: CountrySummaryDto[]) => {
+
+    let filtered = countrySummaries
+      .filter(c => c.TotalConfirmed && (!searchTerm || c.Country.toLocaleLowerCase().includes((searchTerm || '').toLocaleLowerCase())))
+
+    if (filtered.length > 0)
+      return <div className="row">
+        {
+          filtered
+            .sort(compare)
+            .map((summary: CountrySummaryDto, index: number) => {
+              return <div key={index} className="column-4">
+                <div className={"title"}>
+                  <h2>{summary.Country}: {summary.TotalConfirmed}</h2>
+                  <p>
+                    Total: {summary.TotalConfirmed} ( New: {summary.NewConfirmed} )<br />
+                    Total Deaths: {summary.TotalDeaths} ( New: {summary.NewDeaths} )<br />
+                    Total Recovered: {summary.TotalRecovered} ( New: {summary.NewRecovered} )<br />
+                  </p>
+                  <Button className="btn" type="button" onClick={() => setSelected(summary)}>View {summary.Country}'s Chart</Button>
+                </div>
+              </div>
+            })
+        }
+      </div>;
+
+    return <div className="fixed-row"><p>No results found for "{searchTerm}"</p></div>
+
+  }
+
   return <>
     <div className="header-row">
       <h1>Covid-19</h1>
@@ -135,8 +213,8 @@ const Main = () => {
         Data from <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
       </p>
     </div>
-    <div className="refresh-button-panel">
-      <Button type="button" onClick={() => getData()}>Reload data</Button>
+    <div className="row-panel">
+      <Button className="btn" type="button" onClick={() => getData()}>Reload data</Button>
     </div>
     <div className="data-panel">
       <div className="row">
@@ -170,6 +248,41 @@ const Main = () => {
         </div>
       </div>
     </div>
+    {countrySummaries &&
+      <div className="data-panel margin-top-lg">
+        <div className="header-row">
+          <h1>Covid-19</h1>
+          <h3>Global Summaries</h3>
+          <p>
+            Updated at {moment(new Date(globalUpdateTime)).format('ddd, MMM D hh:mm:ss')}<br />
+          Data from <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
+          </p>
+        </div>
+        <div className="row-panel">
+          <div className="row">
+            <Input value={searchTerm || ''} onChange={((e: any) => e.target && setSearchterm(e.target.value))} placeholder="Enter Search Term here" />
+          </div>
+        </div>
+        {getFilteredResults(countrySummaries)}
+
+        {selectedSummary &&
+          <Modal
+            isOpen={selectedSummary !== undefined}
+            toggle={() => setSelected(undefined)}
+          >
+            <ModalHeader className="chart-modal" toggle={() => setSelected(undefined)}>
+              <h2>{selectedSummary.Country}</h2>
+            </ModalHeader>
+            <ModalBody className="chart-modal">
+              {generateChartModal(selectedSummary)}
+            </ModalBody>
+            <ModalFooter className="chart-modal footer">
+              <Button className="btn" type="button" onClick={() => setSelected(undefined)}>Close Chart</Button>
+            </ModalFooter>
+          </Modal>
+        }
+      </div>
+    }
   </>
 }
 

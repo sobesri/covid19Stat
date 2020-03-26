@@ -308,12 +308,12 @@ const Main = () => {
             <h3>Global Summaries</h3>
             <p>
               Updated at {moment.utc(new Date(globalUpdateTime)).local().format('ddd, MMM D hh:mm:ss a')}<br />
-          Data from <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
+              Data from <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
             </p>
           </div>
           <div className="row-panel">
             <div className="row">
-              <Input value={searchTerm || ''} onChange={((e: any) => e.target && setSearchterm(e.target.value))} placeholder="Enter Search Term here" />
+              <Input value={searchTerm || ''} onChange={((e: any) => e.target && setSearchterm(e.target.value))} placeholder="Enter search term here..." />
             </div>
           </div>
           <div className="data-panel">

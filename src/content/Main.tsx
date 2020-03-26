@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../services/api.service';
 import { Response_data, Full_response_data, CountrySummaryDto, Full_response_data_global } from '../types';
-import { Button, ModalHeader, Modal, ModalBody, ModalFooter, Input } from 'reactstrap';
+import { Button, ModalHeader, Modal, ModalBody, ModalFooter, Input, Row, Col } from 'reactstrap';
 import { Chart } from 'primereact/chart';
 
 import moment from 'moment';
@@ -137,6 +137,7 @@ const Main = () => {
   };
 
   const generateChartModal = (summary: CountrySummaryDto) => {
+
     let data = {
       labels: [
         'Active',
@@ -161,7 +162,23 @@ const Main = () => {
       ]
     };
 
-    return <Chart width="" type="pie" data={data} options={chartOptions} />
+    return <>
+      <Chart width="" type="pie" data={data} options={chartOptions} />
+      <div className="modalRow">
+        <Row>
+          <Col md={6} xs={6}>Total: </Col>
+          <Col>{summary.TotalConfirmed} ( New: {summary.NewConfirmed} )</Col>
+        </Row>
+        <Row>
+          <Col md={6} xs={6}>Total Deaths: </Col>
+          <Col>{summary.TotalDeaths} ( New: {summary.NewDeaths} )</Col>
+        </Row>
+        <Row>
+          <Col md={6} xs={6}>Total Recovered: </Col>
+          <Col>{summary.TotalRecovered} ( New: {summary.NewRecovered} )</Col>
+        </Row>
+      </div>
+    </>
   }
 
   const compare = (a: CountrySummaryDto, b: CountrySummaryDto) => {

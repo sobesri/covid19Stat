@@ -152,6 +152,7 @@ const Main = () => {
   let chartOptions = {
     maintainAspectRatio: true,
     aspectRatio: 1,
+    rotation: 0,
     legend: {
       position: 'bottom'
     },

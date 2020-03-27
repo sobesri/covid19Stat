@@ -206,15 +206,15 @@ const Main = () => {
       <div className="modalRow">
         <Row>
           <Col md={6} xs={6}>Total: </Col>
-          <Col>{summary.TotalConfirmed} ( New: {summary.NewConfirmed.toLocaleString()} )</Col>
+          <Col>{summary.TotalConfirmed.toLocaleString()} ( New: {summary.NewConfirmed.toLocaleString()} )</Col>
         </Row>
         <Row>
           <Col md={6} xs={6}>Total Deaths: </Col>
-          <Col>{summary.TotalDeaths} ( New: {summary.NewDeaths.toLocaleString()} )</Col>
+          <Col>{summary.TotalDeaths.toLocaleString()} ( New: {summary.NewDeaths.toLocaleString()} )</Col>
         </Row>
         <Row>
           <Col md={6} xs={6}>Total Recovered: </Col>
-          <Col>{summary.TotalRecovered} ( New: {summary.NewRecovered.toLocaleString()} )</Col>
+          <Col>{summary.TotalRecovered.toLocaleString()} ( New: {summary.NewRecovered.toLocaleString()} )</Col>
         </Row>
       </div>
     </>

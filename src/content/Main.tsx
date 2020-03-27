@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { apiService } from '../services/api.service';
 import { Response_data, Full_response_data, CountrySummaryDto, Full_response_data_global, FilterType, FilterSelectOptions, FilterDirectionOptions } from '../types';
-import { Button, ModalHeader, Modal, ModalBody, ModalFooter, Input, Row, Col } from 'reactstrap';
+import { Button, ModalHeader, Modal, ModalBody, ModalFooter, Input, Row, Col, InputGroup, InputGroupAddon } from 'reactstrap';
 import { Chart } from 'primereact/chart';
 import Select from 'react-select';
 
@@ -23,7 +23,7 @@ const Main = () => {
   const [time, setTime] = useState(new Date().getTime());
   const [countrySummaries, setSummaries] = useState<CountrySummaryDto[]>();
   const [selectedSummary, setSelected] = useState<CountrySummaryDto>();
-  const [searchTerm, setSearchterm] = useState();
+  const [searchTerm, setSearchTerm] = useState();
   const [filterType, setFilterType] = useState(FilterType.Confirmed);
   const [filterDirection, setFilterDirection] = useState(FilterType.Confirmed);
 
@@ -363,7 +363,20 @@ const Main = () => {
           <div className="row-panel">
             <div className="row">
               <div className="column">
-                <Input value={searchTerm || ''} onChange={((e: any) => e.target && setSearchterm(e.target.value))} placeholder="Enter search term here..." />
+                <InputGroup>
+                  <Input
+                    value={searchTerm || ''}
+                    onChange={((e: any) => e.target && setSearchTerm(e.target.value))}
+                    placeholder="Enter search term here..."
+                  />
+                  {searchTerm &&
+                    <InputGroupAddon className={"addon"} addonType="append">
+                      <Button type="button" onClick={() => setSearchTerm(undefined)} title="Clear Search Term">
+                        <i className="material-icons">clear</i>
+                      </Button>
+                    </InputGroupAddon>
+                  }
+                </InputGroup>
               </div>
               <div className="column">
                 <Select

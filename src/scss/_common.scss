@@ -257,3 +257,42 @@
   text-align: left;
   padding: 5% 10%
 }
+
+.addon {
+  position: absolute;
+  right: 3px;
+  bottom: 6px;
+
+  span {
+    background: white;
+    border: 0;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  button {
+    position: absolute;
+    color: lightgray;
+    background: transparent;
+    font-size: 14px;
+    padding: 0px 10px 0px 0px;
+    margin-top: 0.5px;
+    width: auto;
+    border-radius: 0px 3px 3px 0px !important;
+    margin-right: -1px;
+    border: 0;
+    text-align: center;
+    box-shadow: none;
+
+    &:hover {
+      background: white;
+      color: gray;
+      box-shadow: none;
+    }
+
+    i {
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+  }
+}

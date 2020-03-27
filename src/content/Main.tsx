@@ -152,7 +152,7 @@ const Main = () => {
   let chartOptions = {
     maintainAspectRatio: true,
     aspectRatio: 1,
-    rotation: 0,
+    rotation: 0.5 * Math.PI,
     legend: {
       labels: {
         fontColor: '#fff'
@@ -253,6 +253,7 @@ const Main = () => {
     return <div className="fixed-row"><p>No results found for "{searchTerm}"</p></div>
 
   }
+
 
   return <>
     <div id="local">

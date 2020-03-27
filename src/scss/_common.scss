@@ -284,7 +284,10 @@
     text-align: center;
     box-shadow: none;
 
-    &:hover {
+    &:not(:disabled):not(.disabled):active,
+    &:hover,
+    &:active,
+    &:focus {
       background: white;
       color: gray;
       box-shadow: none;

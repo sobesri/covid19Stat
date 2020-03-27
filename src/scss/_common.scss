@@ -23,14 +23,32 @@
 .row-panel {
   text-align: center;
 
-  .row {
+  .column {
     text-align: center;
-    margin: 0 20%;
-
-    @media screen and (max-width: 850px) {
-      margin: 5%;
-    }
+    padding: 2.5% 0;
+    margin: 0 1.6666%;
+    width: 30%;
+    text-transform: wrap;
   }
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  @media screen and (max-width: 600px) {
+
+    .column {
+      padding: 0px 5%;
+      margin: 0 5%;
+      margin-top: 5%;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+  }
+
 }
 
 .data-panel {

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { apiService } from '../services/api.service';
-import { Response_data, Full_response_data, CountrySummaryDto, Full_response_data_global } from '../types';
+import { Response_data, Full_response_data, CountrySummaryDto, Full_response_data_global, FilterType, FilterSelectOptions, FilterDirectionOptions } from '../types';
 import { Button, ModalHeader, Modal, ModalBody, ModalFooter, Input, Row, Col } from 'reactstrap';
 import { Chart } from 'primereact/chart';
+import Select from 'react-select';
 
 import moment from 'moment';
 
@@ -23,6 +24,8 @@ const Main = () => {
   const [countrySummaries, setSummaries] = useState<CountrySummaryDto[]>();
   const [selectedSummary, setSelected] = useState<CountrySummaryDto>();
   const [searchTerm, setSearchterm] = useState();
+  const [filterType, setFilterType] = useState(FilterType.Confirmed);
+  const [filterDirection, setFilterDirection] = useState(FilterType.Confirmed);
 
   useEffect(() => {
     getData();
@@ -215,25 +218,63 @@ const Main = () => {
   }
 
   const compare = (a: CountrySummaryDto, b: CountrySummaryDto) => {
-    if (a.TotalConfirmed < b.TotalConfirmed) {
-      return 1;
+    let ac = a.TotalConfirmed;
+    let bc = b.TotalConfirmed;
+
+    switch (filterType) {
+      case (FilterType.Deaths):
+        ac = a.TotalDeaths;
+        bc = b.TotalDeaths;
+        break;
+      case (FilterType.Recovered):
+        ac = a.TotalRecovered;
+        bc = b.TotalRecovered;
+        break;
+      case (FilterType.NewConfirmed):
+        ac = a.NewConfirmed;
+        bc = b.NewConfirmed;
+        break;
+      case (FilterType.NewDeaths):
+        ac = a.NewDeaths;
+        bc = b.NewDeaths;
+        break;
+      case (FilterType.NewRecovered):
+        ac = a.NewRecovered;
+        bc = b.NewRecovered;
+        break;
     }
-    if (a.TotalConfirmed > b.TotalConfirmed) {
-      return -1;
+
+    if (filterDirection === 0) {
+      if (ac < bc)
+        return 1;
+      if (ac > bc)
+        return -1;
     }
+
+    if (filterDirection === 1) {
+      if (ac > bc)
+        return 1;
+      if (ac < bc)
+        return -1;
+    }
+
     return 0;
   }
 
-  const getFilteredResults = (countrySummaries: CountrySummaryDto[]) => {
-
-    let filtered = countrySummaries
+  const getFilteredResults = (summaries: CountrySummaryDto[]) => {
+    return summaries
       .filter(c => c.TotalConfirmed && (!searchTerm || c.Country.toLocaleLowerCase().includes((searchTerm || '').toLocaleLowerCase())))
+      .sort(compare);
+  }
+
+  const generateFilteredContents = (countrySummaries: CountrySummaryDto[]) => {
+
+    let filtered = getFilteredResults(countrySummaries);
 
     if (filtered.length > 0)
       return <div className="row">
         {
           filtered
-            .sort(compare)
             .map((summary: CountrySummaryDto, index: number) => {
               return <div key={index} className="column-4">
                 <div className={"title"}>
@@ -253,7 +294,6 @@ const Main = () => {
     return <div className="fixed-row"><p>No results found for "{searchTerm}"</p></div>
 
   }
-
 
   return <>
     <div id="local">
@@ -322,11 +362,25 @@ const Main = () => {
           </div>
           <div className="row-panel">
             <div className="row">
-              <Input value={searchTerm || ''} onChange={((e: any) => e.target && setSearchterm(e.target.value))} placeholder="Enter search term here..." />
+              <div className="column">
+                <Input value={searchTerm || ''} onChange={((e: any) => e.target && setSearchterm(e.target.value))} placeholder="Enter search term here..." />
+              </div>
+              <div className="column">
+                <Select
+                  placeholder="Sort By"
+                  options={FilterSelectOptions}
+                  onChange={(e: any) => { e && setFilterType(e.value); }} />
+              </div>
+              <div className="column">
+                <Select
+                  value={FilterDirectionOptions.filter((v: any) => v.value === filterDirection)}
+                  options={FilterDirectionOptions}
+                  onChange={(e: any) => { e && setFilterDirection(e.value); }} />
+              </div>
             </div>
           </div>
           <div className="data-panel">
-            {getFilteredResults(countrySummaries)}
+            {generateFilteredContents(countrySummaries)}
           </div>
           {selectedSummary &&
             <Modal

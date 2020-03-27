@@ -32,3 +32,26 @@ export interface CountrySummaryDto {
   TotalDeaths: number,
   TotalRecovered: number
 }
+
+export enum FilterType {
+  Confirmed = 0,
+  Deaths = 1,
+  Recovered = 2,
+  NewConfirmed = 3,
+  NewDeaths = 4,
+  NewRecovered = 5
+}
+
+export const FilterSelectOptions: any = [
+  { label: 'Total Confirmed', value: FilterType.Confirmed },
+  { label: 'Total Deaths', value: FilterType.Deaths },
+  { label: 'Total Recovered', value: FilterType.Recovered },
+  { label: 'New Confirmed', value: FilterType.NewConfirmed },
+  { label: 'New Deaths', value: FilterType.NewDeaths },
+  { label: 'New Recovered', value: FilterType.NewRecovered }
+]
+
+export const FilterDirectionOptions: any = [
+  { label: 'Desc', value: 0 },
+  { label: 'Asc', value: 1 }
+]

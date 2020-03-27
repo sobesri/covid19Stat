@@ -75,17 +75,30 @@
   .title {
     padding-bottom: 0px;
 
-    span {
-      font-size: 28px;
-      font-weight: 600;
-      align-items: center;
+  }
+
+  @media screen and (max-width: 600px) {
+
+    .column {
+      width: 100%;
+      margin-bottom: 20px;
     }
 
+    .chart {
+      margin: 0px;
+    }
   }
 
   @media screen and (max-width: 850px) {
 
-    .column,
+    .title {
+
+      span {
+        font-size: 14px;
+        padding: 0px 20px;
+      }
+    }
+
     .column-4 {
       width: 100%;
       margin-bottom: 20px;

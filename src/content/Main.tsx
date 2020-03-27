@@ -273,12 +273,14 @@ const Main = () => {
           <div className="column">
             <div className={"title"}>
               <h2>Local Cases: {data && data.local_total_cases.toLocaleString()}</h2>
-              <p>
-                <small>
-                  {data &&
-                    `( Total cases: ${data.local_total_cases.toLocaleString()}, New cases: ${data.local_new_cases.toLocaleString()}, New deaths: ${data.local_new_deaths.toLocaleString()}, In Hospital: ${data.local_total_number_of_individuals_in_hospitals.toLocaleString()} )`}
-                </small>
-              </p>
+              <span>
+                <p>
+                  <small>
+                    {data &&
+                      `( Total cases: ${data.local_total_cases.toLocaleString()}, New cases: ${data.local_new_cases.toLocaleString()}, New deaths: ${data.local_new_deaths.toLocaleString()}, In Hospital: ${data.local_total_number_of_individuals_in_hospitals.toLocaleString()} )`}
+                  </small>
+                </p>
+              </span>
             </div>
             <div className={'chart'}>
               <Chart width="" type="pie" data={dataLocal} options={chartOptions} />
@@ -287,12 +289,14 @@ const Main = () => {
           <div className="column">
             <div className={"title"}>
               <h2>Global Cases: {data && data.global_total_cases.toLocaleString()}</h2>
-              <p>
-                <small>
-                  {data &&
-                    `( Total cases: ${data.global_total_cases.toLocaleString()}, New cases: ${data.global_new_cases.toLocaleString()}, New deaths: ${data.global_new_deaths.toLocaleString()} )`}
-                </small>
-              </p>
+              <span>
+                <p>
+                  <small>
+                    {data &&
+                      `( Total cases: ${data.global_total_cases.toLocaleString()}, New cases: ${data.global_new_cases.toLocaleString()}, New deaths: ${data.global_new_deaths.toLocaleString()} )`}
+                  </small>
+                </p>
+              </span>
             </div>
             <div className={'chart'}>
               <Chart width="" type="pie" data={dataGlobal} options={chartOptions} />

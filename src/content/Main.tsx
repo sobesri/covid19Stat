@@ -367,6 +367,7 @@ const Main = () => {
               </div>
               <div className="column">
                 <Select
+                  value={FilterSelectOptions.filter((v: any) => v.value === filterType)}
                   placeholder="Sort By"
                   options={FilterSelectOptions}
                   onChange={(e: any) => { e && setFilterType(e.value); }} />

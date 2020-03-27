@@ -200,15 +200,15 @@ const Main = () => {
       <div className="modalRow">
         <Row>
           <Col md={6} xs={6}>Total: </Col>
-          <Col>{summary.TotalConfirmed} ( New: {summary.NewConfirmed} )</Col>
+          <Col>{summary.TotalConfirmed} ( New: {summary.NewConfirmed.toLocaleString()} )</Col>
         </Row>
         <Row>
           <Col md={6} xs={6}>Total Deaths: </Col>
-          <Col>{summary.TotalDeaths} ( New: {summary.NewDeaths} )</Col>
+          <Col>{summary.TotalDeaths} ( New: {summary.NewDeaths.toLocaleString()} )</Col>
         </Row>
         <Row>
           <Col md={6} xs={6}>Total Recovered: </Col>
-          <Col>{summary.TotalRecovered} ( New: {summary.NewRecovered} )</Col>
+          <Col>{summary.TotalRecovered} ( New: {summary.NewRecovered.toLocaleString()} )</Col>
         </Row>
       </div>
     </>
@@ -237,11 +237,11 @@ const Main = () => {
             .map((summary: CountrySummaryDto, index: number) => {
               return <div key={index} className="column-4">
                 <div className={"title"}>
-                  <h2>{summary.Country}: {summary.TotalConfirmed}</h2>
+                  <h2>{summary.Country}: {summary.TotalConfirmed.toLocaleString()}</h2>
                   <p>
-                    Total: {summary.TotalConfirmed} ( New: {summary.NewConfirmed} )<br />
-                    Total Deaths: {summary.TotalDeaths} ( New: {summary.NewDeaths} )<br />
-                    Total Recovered: {summary.TotalRecovered} ( New: {summary.NewRecovered} )<br />
+                    Total: {summary.TotalConfirmed.toLocaleString()} ( New: {summary.NewConfirmed.toLocaleString()} )<br />
+                    Total Deaths: {summary.TotalDeaths.toLocaleString()} ( New: {summary.NewDeaths.toLocaleString()} )<br />
+                    Total Recovered: {summary.TotalRecovered.toLocaleString()} ( New: {summary.NewRecovered.toLocaleString()} )<br />
                   </p>
                   <Button className="btn" type="button" onClick={() => setSelected(summary)}>View {summary.Country}'s Chart</Button>
                 </div>
@@ -272,11 +272,11 @@ const Main = () => {
         <div className="row">
           <div className="column">
             <div className={"title"}>
-              <h2>Local Cases: {data && data.local_total_cases}</h2>
+              <h2>Local Cases: {data && data.local_total_cases.toLocaleString()}</h2>
               <p>
                 <small>
                   {data &&
-                    `( Total cases: ${data.local_total_cases}, New cases: ${data.local_new_cases}, New deaths: ${data.local_new_deaths}, In Hospital: ${data.local_total_number_of_individuals_in_hospitals} )`}
+                    `( Total cases: ${data.local_total_cases.toLocaleString()}, New cases: ${data.local_new_cases.toLocaleString()}, New deaths: ${data.local_new_deaths.toLocaleString()}, In Hospital: ${data.local_total_number_of_individuals_in_hospitals.toLocaleString()} )`}
                 </small>
               </p>
             </div>
@@ -286,11 +286,11 @@ const Main = () => {
           </div>
           <div className="column">
             <div className={"title"}>
-              <h2>Global Cases: {data && data.global_total_cases}</h2>
+              <h2>Global Cases: {data && data.global_total_cases.toLocaleString()}</h2>
               <p>
                 <small>
                   {data &&
-                    `( Total cases: ${data.global_total_cases}, New cases: ${data.global_new_cases}, New deaths: ${data.global_new_deaths} )`}
+                    `( Total cases: ${data.global_total_cases.toLocaleString()}, New cases: ${data.global_new_cases.toLocaleString()}, New deaths: ${data.global_new_deaths.toLocaleString()} )`}
                 </small>
               </p>
             </div>

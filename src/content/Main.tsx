@@ -46,8 +46,11 @@ const Main = () => {
     const handleScroll = () => {
       var goToTop = document.getElementById("goToTopButton");
       var goToGlobal = document.getElementById("goToGlobalButton");
+
+      var globalPanel = document.getElementById("global");
+
       if (goToTop && goToGlobal) {
-        if (window.scrollY > 500)
+        if (window.scrollY > (globalPanel ? globalPanel.offsetTop : 500) / 2)
           goToGlobal.style.display = "none";
         else
           goToGlobal.style.display = "block";

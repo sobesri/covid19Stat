@@ -1,18 +1,11 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { apiService } from '../services/api.service';
-import { Response_data, Full_response_data, CountrySummaryDto, Full_response_data_global, FilterType, FilterSelectOptions, FilterDirectionOptions } from '../types';
+import { Response_data, Full_response_data, CountrySummaryDto, Full_response_data_global, FilterType, FilterSelectOptions, FilterDirectionOptions, LOCAL_TIMELINE, CaseSummary } from '../types';
 import { Button, ModalHeader, Modal, ModalBody, ModalFooter, Input, Row, Col, InputGroup, InputGroupAddon } from 'reactstrap';
 import { Chart } from 'primereact/chart';
 import Select from 'react-select';
 
 import moment from 'moment';
-
-interface Case {
-  total: number,
-  active: number,
-  recovered: number,
-  dead: number
-}
 
 const Main = () => {
   const [data, setData] = useState<Response_data>();
@@ -26,6 +19,7 @@ const Main = () => {
   const [searchTerm, setSearchTerm] = useState();
   const [filterType, setFilterType] = useState(FilterType.Confirmed);
   const [filterDirection, setFilterDirection] = useState(FilterType.Confirmed);
+  const [showTimeLine, toggleTimeLine] = useState(false);
 
   useEffect(() => {
     getData();
@@ -220,6 +214,97 @@ const Main = () => {
     </>
   }
 
+  const generateTimeLineChartModal = () => {
+
+    let data = {
+      labels: LOCAL_TIMELINE.map((d: CaseSummary) => moment.utc(new Date(d.date)).local().format('MMM|D')),
+      datasets: [
+        {
+          label: 'Confirmed',
+          data: LOCAL_TIMELINE.map((d: CaseSummary) => d.confirmed),
+          // backgroundColor: '#F1C40F',
+          borderColor: '#F1C40F',
+          // borderWidth: 0
+        },
+        {
+          label: 'Recovered',
+          data: LOCAL_TIMELINE.map((d: CaseSummary) => d.recovered),
+          // backgroundColor: '#27AE60',
+          borderColor: '#27AE60',
+          // borderWidth: 0
+        },
+        {
+          label: 'Deaths',
+          data: LOCAL_TIMELINE.map((d: CaseSummary) => d.deaths),
+          // backgroundColor: '#CB4335',
+          borderColor: '#CB4335',
+          // borderWidth: 0
+        }
+      ]
+    };
+
+    return <>
+      <Chart width="" type="line" data={data} options={
+        {
+          maintainAspectRatio: true,
+          aspectRatio: 1.25,
+          // fill: 'false',
+          legend: {
+            labels: {
+              fontColor: '#fff'
+            },
+            position: 'bottom'
+          },
+          layout: {
+            padding: {
+              left: 0,
+              right: 0,
+              top: 30,
+              bottom: 20
+            }
+          },
+          scales: {
+            xAxes: [{
+              id: 'date',
+              type: 'category',
+              ticks: {
+                callback: function (label: any) {
+                  var labelArray = label.split("|");
+                  return labelArray[1];
+                }
+              }
+            },
+            {
+              id: 'month',
+              type: 'category',
+              gridLines: {
+                drawOnChartArea: false, // only want the grid lines for one axis to show up
+              },
+              ticks: {
+                callback: function (label: any) {
+                  var labelArray = label.split("|");
+                  return labelArray[0];
+                }
+              }
+            }
+            ]
+          }
+        }} />
+      <div>
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 2, 28, 22, 38, 44)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
+      </div>
+      <div>
+        Source:&nbsp;
+        <a
+          href="http://www.epid.gov.lk/web/index.php?option=com_content&view=article&id=225&Itemid=518&lang=en"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          epid.gov.lk/
+        </a>
+      </div>
+    </>
+  }
   const compare = (a: CountrySummaryDto, b: CountrySummaryDto) => {
     let ac = a.TotalConfirmed;
     let bc = b.TotalConfirmed;
@@ -327,6 +412,9 @@ const Main = () => {
             </div>
             <div className={'chart'}>
               <Chart width="" type="pie" data={dataLocal} options={chartOptions} />
+            </div>
+            <div>
+              <Button type="button" onClick={() => toggleTimeLine(true)}>Open Timeline</Button>
             </div>
           </div>
           <div className="column">
@@ -437,6 +525,20 @@ const Main = () => {
     >
       Global
     </Button>
+    <Modal
+      isOpen={showTimeLine}
+      toggle={() => toggleTimeLine(false)}
+    >
+      <ModalHeader className="chart-modal" toggle={() => toggleTimeLine(false)}>
+        <h2>Local Timeline</h2>
+      </ModalHeader>
+      <ModalBody className="chart-modal">
+        {generateTimeLineChartModal()}
+      </ModalBody>
+      <ModalFooter className="chart-modal footer">
+        <Button className="btn" type="button" onClick={() => toggleTimeLine(false)}>Close Chart</Button>
+      </ModalFooter>
+    </Modal>
   </>
 }
 

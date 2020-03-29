@@ -217,7 +217,7 @@ const Main = () => {
   const generateTimeLineChartModal = () => {
 
     let data = {
-      labels: LOCAL_TIMELINE.map((d: CaseSummary) => moment.utc(new Date(d.date)).local().format('MMM|D')),
+      labels: LOCAL_TIMELINE.map((d: CaseSummary) => moment.utc(new Date(d.date)).local().format('MMM D')),
       datasets: [
         {
           label: 'Confirmed',
@@ -269,7 +269,7 @@ const Main = () => {
               type: 'category',
               ticks: {
                 callback: function (label: any) {
-                  var labelArray = label.split("|");
+                  var labelArray = label.split(" ");
                   return labelArray[1];
                 }
               }
@@ -282,7 +282,7 @@ const Main = () => {
               },
               ticks: {
                 callback: function (label: any) {
-                  var labelArray = label.split("|");
+                  var labelArray = label.split(" ");
                   return labelArray[0];
                 }
               }

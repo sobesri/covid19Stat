@@ -217,7 +217,7 @@ const Main = () => {
   const generateTimeLineChartModal = () => {
 
     let data = {
-      labels: LOCAL_TIMELINE.map((d: CaseSummary) => moment.utc(new Date(d.date)).local().format('MMM-D')),
+      labels: LOCAL_TIMELINE.map((d: CaseSummary) => moment.utc(new Date(d.date)).local().format('MMM D')),
       datasets: [
         {
           label: 'Confirmed',

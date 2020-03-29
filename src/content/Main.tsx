@@ -526,6 +526,7 @@ const Main = () => {
       Global
     </Button>
     <Modal
+      className="modal-lg"
       isOpen={showTimeLine}
       toggle={() => toggleTimeLine(false)}
     >

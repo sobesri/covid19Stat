@@ -247,8 +247,8 @@ const Main = () => {
       <Chart width="" type="line" data={data} options={
         {
           maintainAspectRatio: true,
-          aspectRatio: 1.25,
-          // fill: 'false',
+          aspectRatio: 1,
+          responsive: true,
           legend: {
             labels: {
               fontColor: '#fff'

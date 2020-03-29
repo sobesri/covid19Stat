@@ -299,3 +299,22 @@
     }
   }
 }
+
+.modal-lg {
+  max-width: 50%;
+
+  .modal-body {
+    padding: 10px 40px;
+  }
+
+  @media screen and (max-width: 600px) {
+    max-width: 100%;
+    padding-top: 25%;
+
+
+    .modal-body {
+      padding: 10px;
+    }
+
+  }
+}

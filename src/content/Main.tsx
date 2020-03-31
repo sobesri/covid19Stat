@@ -291,7 +291,7 @@ const Main = () => {
           }
         }} />
       <div>
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 2, 31, 17, 28, 20)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 2, 31, 19, 51, 26)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
       </div>
       <div>
         Source:&nbsp;

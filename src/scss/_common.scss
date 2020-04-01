@@ -66,12 +66,16 @@
 
   .column-4 {
     text-align: center;
-    padding: 2.5%;
     margin: 1.6666%;
-    margin-bottom: 0px;
     width: 30%;
-    border: 1px solid #b4b4b4;
+    border: 0px;
     text-transform: wrap;
+  }
+  
+  .data-col {
+    margin-bottom: 0px;
+    padding: 2.5%;
+    border: 1px solid #b4b4b4;
   }
 
   .chart {

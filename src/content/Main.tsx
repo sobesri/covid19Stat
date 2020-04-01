@@ -364,7 +364,7 @@ const Main = () => {
         {
           filtered
             .map((summary: CountrySummaryDto, index: number) => {
-              return <div key={index} className="column-4">
+              return <div key={index} className="column-4 data-col">
                 <div className={"title"}>
                   <h2>{summary.Country}: {summary.TotalConfirmed.toLocaleString()}</h2>
                   <p>
@@ -452,35 +452,37 @@ const Main = () => {
             </p>
           </div>
           <div className="row-panel">
-            <div className="row">
-              <div className="column">
-                <InputGroup>
-                  <Input
-                    value={searchTerm || ''}
-                    onChange={((e: any) => e.target && setSearchTerm(e.target.value))}
-                    placeholder="Enter search term here..."
-                  />
-                  {searchTerm &&
-                    <InputGroupAddon className={"addon"} addonType="append">
-                      <Button type="button" onClick={() => setSearchTerm(undefined)} title="Clear Search Term">
-                        <i className="material-icons">clear</i>
-                      </Button>
-                    </InputGroupAddon>
-                  }
-                </InputGroup>
-              </div>
-              <div className="column">
-                <Select
-                  value={FilterSelectOptions.filter((v: any) => v.value === filterType)}
-                  placeholder="Sort By"
-                  options={FilterSelectOptions}
-                  onChange={(e: any) => { e && setFilterType(e.value); }} />
-              </div>
-              <div className="column">
-                <Select
-                  value={FilterDirectionOptions.filter((v: any) => v.value === filterDirection)}
-                  options={FilterDirectionOptions}
-                  onChange={(e: any) => { e && setFilterDirection(e.value); }} />
+            <div className="data-panel">
+              <div className="row">
+                <div className="column-4">
+                  <InputGroup>
+                    <Input
+                      value={searchTerm || ''}
+                      onChange={((e: any) => e.target && setSearchTerm(e.target.value))}
+                      placeholder="Enter search term here..."
+                    />
+                    {searchTerm &&
+                      <InputGroupAddon className={"addon"} addonType="append">
+                        <Button type="button" onClick={() => setSearchTerm(undefined)} title="Clear Search Term">
+                          <i className="material-icons">clear</i>
+                        </Button>
+                      </InputGroupAddon>
+                    }
+                  </InputGroup>
+                </div>
+                <div className="column-4">
+                  <Select
+                    value={FilterSelectOptions.filter((v: any) => v.value === filterType)}
+                    placeholder="Sort By"
+                    options={FilterSelectOptions}
+                    onChange={(e: any) => { e && setFilterType(e.value); }} />
+                </div>
+                <div className="column-4">
+                  <Select
+                    value={FilterDirectionOptions.filter((v: any) => v.value === filterDirection)}
+                    options={FilterDirectionOptions}
+                    onChange={(e: any) => { e && setFilterDirection(e.value); }} />
+                </div>
               </div>
             </div>
           </div>

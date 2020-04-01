@@ -144,7 +144,14 @@ const Main = () => {
 
     apiService.getStatistics_Global()
       .then((res: Full_response_data_global) => {
-        setSummaries(res.Countries);
+
+        let summaries = res.Countries;
+
+        summaries = summaries.filter((item: CountrySummaryDto, index: number) => {
+          return (summaries.map(c => c.Slug).indexOf(item.Slug) === index)
+        });
+
+        setSummaries(summaries);
         setGlobalUpdateTime(res.Date)
       })
   }

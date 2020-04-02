@@ -66,8 +66,8 @@ export const FilterDirectionOptions: any = [
 
 
 export const LOCAL_TIMELINE: CaseSummary[] = [
+  { date: new Date(2020, 2, 10), recovered: 0, deaths: 0, confirmed: 1 },
   { date: new Date(2020, 2, 11), recovered: 0, deaths: 0, confirmed: 1 },
-  { date: new Date(2020, 2, 12), recovered: 0, deaths: 0, confirmed: 1 },
   { date: new Date(2020, 2, 12), recovered: 0, deaths: 0, confirmed: 2 },
   { date: new Date(2020, 2, 13), recovered: 0, deaths: 0, confirmed: 4 },
   { date: new Date(2020, 2, 14), recovered: 0, deaths: 0, confirmed: 6 },

@@ -250,53 +250,57 @@ const Main = () => {
       ]
     };
 
-    return <>
-      <Chart width="" type="line" data={data} options={
-        {
-          maintainAspectRatio: true,
-          aspectRatio: 1.25,
-          responsive: true,
-          legend: {
-            labels: {
-              fontColor: '#fff'
-            },
-            position: 'bottom'
-          },
-          layout: {
-            padding: {
-              left: 0,
-              right: 0,
-              top: 30,
-              bottom: 20
+    const timelineChartOptions =
+    {
+      maintainAspectRatio: true,
+      aspectRatio: 1.3,
+      responsive: true,
+      legend: {
+        labels: {
+          fontColor: '#fff'
+        },
+        position: 'bottom'
+      },
+      layout: {
+        padding: {
+          left: 0,
+          right: 0,
+          top: 30,
+          bottom: 20
+        }
+      },
+      scales: {
+        xAxes: [{
+          id: 'date',
+          type: 'category',
+          ticks: {
+            callback: function (label: any) {
+              var labelArray = label.split(" ");
+              var date = parseInt(labelArray[1]);
+              if (date === 1 || date % 2 === 0) return labelArray[1];
             }
-          },
-          scales: {
-            xAxes: [{
-              id: 'date',
-              type: 'category',
-              ticks: {
-                callback: function (label: any) {
-                  var labelArray = label.split(" ");
-                  return labelArray[1];
-                }
-              }
-            },
-            {
-              id: 'month',
-              type: 'category',
-              gridLines: {
-                drawOnChartArea: false, // only want the grid lines for one axis to show up
-              },
-              ticks: {
-                callback: function (label: any) {
-                  var labelArray = label.split(" ");
-                  return labelArray[0];
-                }
-              }
-            }
-            ]
           }
-        }} />
+        },
+        {
+          id: 'month',
+          type: 'category',
+          gridLines: {
+            drawOnChartArea: false, // only want the grid lines for one axis to show up
+          },
+          ticks: {
+            callback: function (label: any) {
+              var labelArray = label.split(" ");
+              var date = parseInt(labelArray[1]);
+              if (date % 2 === 1) return labelArray[0];
+            }
+          }
+        }
+        ]
+      }
+    };
+
+    return <>
+      <Chart width="" type="line" data={data} options={timelineChartOptions} />
       <div>
         <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 2, 9, 27, 13)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
       </div>

@@ -139,7 +139,6 @@
   text-align: center;
   border: 1px solid #b4b4b4;
 
-
   .close {
     color: rgb(216, 216, 216);
     background-color: black;
@@ -305,16 +304,15 @@
 }
 
 .modal-lg {
-  max-width: 50%;
+  // max-width: 50%;
 
   .modal-body {
-    padding: 10px 120px;
+    padding: 10px;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 400px) {
     max-width: 100%;
     padding-top: 25%;
-
 
     .modal-body {
       padding: 10px;

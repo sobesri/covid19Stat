@@ -91,4 +91,5 @@ export const LOCAL_TIMELINE: CaseSummary[] = [
   { date: new Date(2020, 3, 1), recovered: 21, deaths: 2, confirmed: 146 },
   { date: new Date(2020, 3, 2), recovered: 21, deaths: 3, confirmed: 151 },
   { date: new Date(2020, 3, 3), recovered: 22, deaths: 4, confirmed: 151 },
+  { date: new Date(2020, 3, 4), recovered: 27, deaths: 5, confirmed: 162 },
 ];

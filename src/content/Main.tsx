@@ -302,7 +302,7 @@ const Main = () => {
     return <>
       <Chart width="" type="line" data={data} options={timelineChartOptions} />
       <div>
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 4, 19, 26, 40)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 5, 9, 10, 22)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
       </div>
       <div>
         Source:&nbsp;

@@ -1,22 +1,28 @@
 {
   "files": {
-    "main.css": "/covid19Stat/static/css/main.6819f774.chunk.css",
-    "main.js": "/covid19Stat/static/js/main.84d96e45.chunk.js",
-    "main.js.map": "/covid19Stat/static/js/main.84d96e45.chunk.js.map",
+    "main.css": "/covid19Stat/static/css/main.ed12ac48.chunk.css",
+    "main.js": "/covid19Stat/static/js/main.1503b77f.chunk.js",
+    "main.js.map": "/covid19Stat/static/js/main.1503b77f.chunk.js.map",
     "runtime-main.js": "/covid19Stat/static/js/runtime-main.83ea3e9b.js",
     "runtime-main.js.map": "/covid19Stat/static/js/runtime-main.83ea3e9b.js.map",
-    "static/js/2.c0b27b31.chunk.js": "/covid19Stat/static/js/2.c0b27b31.chunk.js",
-    "static/js/2.c0b27b31.chunk.js.map": "/covid19Stat/static/js/2.c0b27b31.chunk.js.map",
+    "static/css/2.ddea4eca.chunk.css": "/covid19Stat/static/css/2.ddea4eca.chunk.css",
+    "static/js/2.06c0f4cd.chunk.js": "/covid19Stat/static/js/2.06c0f4cd.chunk.js",
+    "static/js/2.06c0f4cd.chunk.js.map": "/covid19Stat/static/js/2.06c0f4cd.chunk.js.map",
     "index.html": "/covid19Stat/index.html",
-    "precache-manifest.557991477cc0f83086c7b37803b8ae71.js": "/covid19Stat/precache-manifest.557991477cc0f83086c7b37803b8ae71.js",
+    "precache-manifest.5118be88ac65f37c4ff0f430397584fb.js": "/covid19Stat/precache-manifest.5118be88ac65f37c4ff0f430397584fb.js",
     "service-worker.js": "/covid19Stat/service-worker.js",
-    "static/css/main.6819f774.chunk.css.map": "/covid19Stat/static/css/main.6819f774.chunk.css.map",
-    "static/js/2.c0b27b31.chunk.js.LICENSE.txt": "/covid19Stat/static/js/2.c0b27b31.chunk.js.LICENSE.txt"
+    "static/css/2.ddea4eca.chunk.css.map": "/covid19Stat/static/css/2.ddea4eca.chunk.css.map",
+    "static/css/main.ed12ac48.chunk.css.map": "/covid19Stat/static/css/main.ed12ac48.chunk.css.map",
+    "static/js/2.06c0f4cd.chunk.js.LICENSE.txt": "/covid19Stat/static/js/2.06c0f4cd.chunk.js.LICENSE.txt",
+    "static/media/primereact.min.css": "/covid19Stat/static/media/line.567f5738.gif",
+    "static/media/theme.css": "/covid19Stat/static/media/open-sans-v15-latin-regular.cffb686d.woff2",
+    "static/media/primeicons.css": "/covid19Stat/static/media/primeicons.e5e0e944.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.83ea3e9b.js",
-    "static/js/2.c0b27b31.chunk.js",
-    "static/css/main.6819f774.chunk.css",
-    "static/js/main.84d96e45.chunk.js"
+    "static/css/2.ddea4eca.chunk.css",
+    "static/js/2.06c0f4cd.chunk.js",
+    "static/css/main.ed12ac48.chunk.css",
+    "static/js/main.1503b77f.chunk.js"
   ]
 }

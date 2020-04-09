@@ -122,19 +122,29 @@
             border-left: 0px;
             border-right: 0px;
             padding-left: 10px;
-            background-color: rgb(218, 218, 218);
 
             button {
               color: black;
             }
 
             @media screen and (max-width: 600px) {
+
+              &:first-of-type {
+                padding-top: 20px;
+              }
+
               span {
                 color: rgb(102, 102, 102);
                 width: 100%;
               }
 
               &:last-of-type {
+                border-bottom: 1px solid black;
+
+                button {
+                  margin-bottom: 20px;
+                }
+
                 span {
                   display: none;
                 }

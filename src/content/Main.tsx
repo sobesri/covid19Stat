@@ -248,7 +248,7 @@ const Main = () => {
                 <CaseSummaryChart type="doughnut" summary={{ confirmed: data.local_total_cases, deaths: data.local_deaths, recovered: data.local_recovered }} />
               </div>
               <div className="row-panel">
-                <h2>Local Cases: {data && data.local_total_cases.toLocaleString()}</h2>
+                <h2>Total Cases: {data && data.local_total_cases.toLocaleString()}</h2>
               </div>
               <div className="row">
                 <div className="column-4 data-border active">Active: {(data.local_total_cases - data.local_recovered - data.local_deaths).toLocaleString()}</div>

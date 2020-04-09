@@ -1,25 +1,19 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { apiService } from '../services/api.service';
-import { Response_data, Full_response_data, CountrySummaryDto, Full_response_data_global, FilterType, FilterSelectOptions, FilterDirectionOptions, LOCAL_TIMELINE, CaseSummary } from '../types';
-import { Button, ModalHeader, Modal, ModalBody, ModalFooter, Input, Row, Col, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Response_data, Full_response_data, LOCAL_TIMELINE, CaseSummary, Full_response_data_global, CountrySummaryDto, GlobalSummary } from '../types';
+import { Button } from 'reactstrap';
 import { Chart } from 'primereact/chart';
-import Select from 'react-select';
 
 import moment from 'moment';
+import Global from '../Components/Global';
+import CaseSummaryChart from '../Components/Dashboard/caseSummaryChart';
+import GlobalSummaryChart from '../Components/Dashboard/globalSummaryChart';
 
 const Main = () => {
   const [data, setData] = useState<Response_data>();
   const [updatedDate, setDate] = useState<Date>(new Date());
-  const [globalUpdateTime, setGlobalUpdateTime] = useState<Date>(new Date());
-  const [dataLocal, setDataLocal] = useState<any>();
-  const [dataGlobal, setDataGlobal] = useState<any>();
   const [time, setTime] = useState(new Date().getTime());
-  const [countrySummaries, setSummaries] = useState<CountrySummaryDto[]>();
-  const [selectedSummary, setSelected] = useState<CountrySummaryDto>();
-  const [searchTerm, setSearchTerm] = useState();
-  const [filterType, setFilterType] = useState(FilterType.Confirmed);
-  const [filterDirection, setFilterDirection] = useState(FilterType.Confirmed);
-  const [showTimeLine, toggleTimeLine] = useState(false);
+  const [globalData, setGlobalData] = useState<Full_response_data_global>();
 
   useEffect(() => {
     getData();
@@ -89,162 +83,47 @@ const Main = () => {
         };
 
         setData(d);
-
-        const gDataLocal = {
-          labels: [
-            'Active',
-            'Deaths',
-            'Recovered'
-          ],
-          datasets: [
-            {
-              label: 'Local Cases',
-              data: [
-                d.local_total_cases - d.local_recovered - d.local_deaths,
-                d.local_deaths,
-                d.local_recovered
-              ],
-              backgroundColor: [
-                '#F1C40F', // yellow
-                '#CB4335', // red
-                "#27AE60" // green
-              ],
-              borderWidth: 0
-            }
-          ]
-        };
-
-        const gDataGlobal = {
-          labels: [
-            'Active',
-            'Deaths',
-            'Recovered'
-          ],
-          datasets: [
-            {
-              label: 'Global Cases',
-              data: [
-                d.global_total_cases - d.global_recovered - d.global_deaths,
-                d.global_deaths,
-                d.global_recovered
-              ],
-              backgroundColor: [
-                '#F1C40F', // yellow
-                '#CB4335', // red
-                "#27AE60" // green
-              ],
-              borderWidth: 0
-            }
-          ]
-        };
-
-        setDataLocal(gDataLocal);
-        setDataGlobal(gDataGlobal);
       });
 
     apiService.getStatistics_Global()
       .then((res: Full_response_data_global) => {
 
-        let summaries = res.Countries;
 
-        summaries = summaries.filter((item: CountrySummaryDto, index: number) => {
-          return (summaries.map(c => c.Slug).indexOf(item.Slug) === index)
+        let countries = res.Countries;
+
+        countries = countries.filter((item: CountrySummaryDto, index: number) => {
+          return (countries.map(c => c.Slug).indexOf(item.Slug) === index)
         });
 
-        setSummaries(summaries);
-        setGlobalUpdateTime(res.Date)
+        setGlobalData({ ...res, Countries: countries });
+
       })
-  }
-
-  let chartOptions = {
-    maintainAspectRatio: true,
-    aspectRatio: 1,
-    rotation: 0.5 * Math.PI,
-    legend: {
-      labels: {
-        fontColor: '#fff'
-      },
-      position: 'bottom'
-    },
-    layout: {
-      padding: {
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0
-      }
-    }
-  };
-
-  const generateChartModal = (summary: CountrySummaryDto) => {
-
-    let data = {
-      labels: [
-        'Active',
-        'Deaths',
-        'Recovered'
-      ],
-      datasets: [
-        {
-          label: 'Local Cases',
-          data: [
-            summary.TotalConfirmed - summary.TotalRecovered - summary.TotalDeaths,
-            summary.TotalDeaths,
-            summary.TotalRecovered
-          ],
-          backgroundColor: [
-            '#F1C40F', // yellow
-            '#CB4335', // red
-            "#27AE60" // green
-          ],
-          borderWidth: 0
-        }
-      ]
-    };
-
-    return <>
-      <Chart width="" type="pie" data={data} options={chartOptions} />
-      <div className="modalRow">
-        <Row>
-          <Col md={6} xs={6}>Total: </Col>
-          <Col>{summary.TotalConfirmed.toLocaleString()} ( New: {summary.NewConfirmed.toLocaleString()} )</Col>
-        </Row>
-        <Row>
-          <Col md={6} xs={6}>Total Deaths: </Col>
-          <Col>{summary.TotalDeaths.toLocaleString()} ( New: {summary.NewDeaths.toLocaleString()} )</Col>
-        </Row>
-        <Row>
-          <Col md={6} xs={6}>Total Recovered: </Col>
-          <Col>{summary.TotalRecovered.toLocaleString()} ( New: {summary.NewRecovered.toLocaleString()} )</Col>
-        </Row>
-      </div>
-    </>
   }
 
   const generateTimeLineChartModal = () => {
 
     let data = {
-      labels: LOCAL_TIMELINE.map((d: CaseSummary) => moment.utc(new Date(d.date)).local().format('MMM D')),
+      labels: LOCAL_TIMELINE.map((d: CaseSummary) => moment.utc(d.date ? new Date(d.date) : new Date()).local().format('MMM D')),
       datasets: [
         {
           label: 'Confirmed',
           data: LOCAL_TIMELINE.map((d: CaseSummary) => d.confirmed),
           // backgroundColor: '#F1C40F',
-          borderColor: '#F1C40F',
+          borderColor: 'rgb(0, 119, 255)',
           // borderWidth: 0
         },
         {
           label: 'Recovered',
           data: LOCAL_TIMELINE.map((d: CaseSummary) => d.recovered),
           // backgroundColor: '#27AE60',
-          borderColor: '#27AE60',
+          borderColor: 'rgb(0, 221, 0)',
           // borderWidth: 0
         },
         {
           label: 'Deaths',
           data: LOCAL_TIMELINE.map((d: CaseSummary) => d.deaths),
           // backgroundColor: '#CB4335',
-          borderColor: '#CB4335',
+          borderColor: 'rgb(255, 72, 0)',
           // borderWidth: 0
         }
       ]
@@ -252,8 +131,7 @@ const Main = () => {
 
     const timelineChartOptions =
     {
-      maintainAspectRatio: true,
-      aspectRatio: 1.3,
+      aspectRatio: 1.2,
       responsive: true,
       legend: {
         labels: {
@@ -265,7 +143,7 @@ const Main = () => {
         padding: {
           left: 0,
           right: 0,
-          top: 30,
+          top: 0,
           bottom: 20
         }
       },
@@ -276,8 +154,7 @@ const Main = () => {
           ticks: {
             callback: function (label: any) {
               var labelArray = label.split(" ");
-              var date = parseInt(labelArray[1]);
-              if (date === 1 || date % 2 === 0) return labelArray[1];
+              return labelArray[1];
             }
           }
         },
@@ -290,8 +167,7 @@ const Main = () => {
           ticks: {
             callback: function (label: any) {
               var labelArray = label.split(" ");
-              var date = parseInt(labelArray[1]);
-              if (date % 2 === 1) return labelArray[0];
+              return labelArray[0];
             }
           }
         }
@@ -300,9 +176,12 @@ const Main = () => {
     };
 
     return <>
-      <Chart width="" type="line" data={data} options={timelineChartOptions} />
+      <div className='title'>
+        <strong>Progression of the outbreak</strong>
+      </div>
+      <Chart className="padding-top-lg" width="" type="line" data={data} options={timelineChartOptions} />
       <div>
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 7, 20, 12, 55)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 9, 13, 12, 55)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
       </div>
       <div>
         Source:&nbsp;
@@ -316,244 +195,151 @@ const Main = () => {
       </div>
     </>
   }
+
+  const getGlobalSummariesChartData = () => {
+
+    let filteredData = globalData && globalData.Countries.sort(compare);
+
+    if (!filteredData) return undefined;
+
+    let firstFew = filteredData.slice(0, 4);
+
+    let data: GlobalSummary[] = firstFew.map((c: CountrySummaryDto) => {
+      return ({
+        confirmed: c.TotalConfirmed,
+        deaths: c.TotalDeaths,
+        recovered: c.TotalRecovered,
+        country: c.Country
+      });
+    });
+
+    return data;
+
+  }
+
   const compare = (a: CountrySummaryDto, b: CountrySummaryDto) => {
     let ac = a.TotalConfirmed;
     let bc = b.TotalConfirmed;
 
-    switch (filterType) {
-      case (FilterType.Deaths):
-        ac = a.TotalDeaths;
-        bc = b.TotalDeaths;
-        break;
-      case (FilterType.Recovered):
-        ac = a.TotalRecovered;
-        bc = b.TotalRecovered;
-        break;
-      case (FilterType.NewConfirmed):
-        ac = a.NewConfirmed;
-        bc = b.NewConfirmed;
-        break;
-      case (FilterType.NewDeaths):
-        ac = a.NewDeaths;
-        bc = b.NewDeaths;
-        break;
-      case (FilterType.NewRecovered):
-        ac = a.NewRecovered;
-        bc = b.NewRecovered;
-        break;
-    }
-
-    if (filterDirection === 0) {
-      if (ac < bc)
-        return 1;
-      if (ac > bc)
-        return -1;
-    }
-
-    if (filterDirection === 1) {
-      if (ac > bc)
-        return 1;
-      if (ac < bc)
-        return -1;
-    }
+    if (ac < bc)
+      return 1;
+    if (ac > bc)
+      return -1;
 
     return 0;
   }
 
-  const getFilteredResults = (summaries: CountrySummaryDto[]) => {
-    return summaries
-      .filter(c => c.TotalConfirmed && (!searchTerm || c.Country.toLocaleLowerCase().includes((searchTerm || '').toLocaleLowerCase())))
-      .sort(compare);
-  }
-
-  const generateFilteredContents = (countrySummaries: CountrySummaryDto[]) => {
-
-    let filtered = getFilteredResults(countrySummaries);
-
-    if (filtered.length > 0)
-      return <div className="row">
-        {
-          filtered
-            .map((summary: CountrySummaryDto, index: number) => {
-              return <div key={index} className="column-4 data-col">
-                <div className={"title"}>
-                  <h2>{summary.Country}: {summary.TotalConfirmed.toLocaleString()}</h2>
-                  <p>
-                    Total: {summary.TotalConfirmed.toLocaleString()} ( New: {summary.NewConfirmed.toLocaleString()} )<br />
-                    Total Deaths: {summary.TotalDeaths.toLocaleString()} ( New: {summary.NewDeaths.toLocaleString()} )<br />
-                    Total Recovered: {summary.TotalRecovered.toLocaleString()} ( New: {summary.NewRecovered.toLocaleString()} )<br />
-                  </p>
-                  <Button className="btn" type="button" onClick={() => setSelected(summary)}>View {summary.Country}'s Chart</Button>
+  return !data ? <></> :
+    <>
+      <div id="local">
+        <div className="header-row">
+          <h1>Covid-19</h1>
+          <h3>Sri Lanka</h3>
+          <p>
+            Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}<br />
+            Data source: <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
+          </p>
+          <Button className="btn reload" type="button" onClick={() => getData()}>Reload data</Button>
+        </div>
+        <div className="data-panel">
+          <div className="row border-box-sm">
+            <div className="column">
+              <div className='chart padding-top-lg'>
+                <CaseSummaryChart type="doughnut" summary={{ confirmed: data.local_total_cases, deaths: data.local_deaths, recovered: data.local_recovered }} />
+              </div>
+              <div className="row-panel">
+                <h2>Local Cases: {data && data.local_total_cases.toLocaleString()}</h2>
+              </div>
+              <div className="row">
+                <div className="column-4 data-border active">Active: {(data.local_total_cases - data.local_recovered - data.local_deaths).toLocaleString()}</div>
+                <div className="column-4 data-border recovered">Recovered: {data.local_recovered.toLocaleString()}</div>
+                <div className="column-4 data-border deaths">Deaths: {data.local_deaths.toLocaleString()}</div>
+              </div>
+              <div className="row-panel">
+                <div className="updates data-border">
+                  Updates <span>: </span>
+                  New cases : <strong>{data.local_new_cases.toLocaleString()}</strong> <span>- </span>
+                  New deaths : <strong>{data.local_new_deaths.toLocaleString()}</strong> <span>- </span>
+                  In Hospital : <strong>{data.local_total_number_of_individuals_in_hospitals.toLocaleString()}</strong>
                 </div>
               </div>
-            })
-        }
-      </div>;
-
-    return <div className="fixed-row"><p>No results found for "{searchTerm}"</p></div>
-
-  }
-
-  return <>
-    <div id="local">
-      <div className="header-row">
-        <h1>Covid-19</h1>
-        <h3>Sri Lanka</h3>
-        <p>
-          Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}<br />
-        Data from <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
-        </p>
-      </div>
-      <div className="row-panel">
-        <Button className="btn" type="button" onClick={() => getData()}>Reload data</Button>
-      </div>
-      <div className="data-panel">
-        <div className="row">
-          <div className="column">
-            <div className={"title"}>
-              <h2>Local Cases: {data && data.local_total_cases.toLocaleString()}</h2>
-              <span>
-                <p>
-                  <small>
-                    {data &&
-                      `( Total cases: ${data.local_total_cases.toLocaleString()}, New cases: ${data.local_new_cases.toLocaleString()}, New deaths: ${data.local_new_deaths.toLocaleString()}, In Hospital: ${data.local_total_number_of_individuals_in_hospitals.toLocaleString()} )`}
-                  </small>
-                </p>
-              </span>
             </div>
-            <div className={'chart'}>
-              <Chart width="" type="pie" data={dataLocal} options={chartOptions} />
-            </div>
-            <div>
-              <Button type="button" onClick={() => toggleTimeLine(true)}>Open Timeline</Button>
-            </div>
-          </div>
-          <div className="column">
-            <div className={"title"}>
-              <h2>Global Cases: {data && data.global_total_cases.toLocaleString()}</h2>
-              <span>
-                <p>
-                  <small>
-                    {data &&
-                      `( Total cases: ${data.global_total_cases.toLocaleString()}, New cases: ${data.global_new_cases.toLocaleString()}, New deaths: ${data.global_new_deaths.toLocaleString()} )`}
-                  </small>
-                </p>
-              </span>
-            </div>
-            <div className={'chart'}>
-              <Chart width="" type="pie" data={dataGlobal} options={chartOptions} />
+            <div className="column padding-top-lg">
+              <div className='chart line'>
+                {generateTimeLineChartModal()}
+              </div>
             </div>
           </div>
         </div>
+        <div className="padding-top-xlg">
+        </div>
       </div>
-      <div className="padding-top-xlg">
-      </div>
-    </div>
-    <div id="global">
-      <div className="padding-top-lg">
-      </div>
-      {countrySummaries &&
+      <div id="global">
+        <div className="padding-top-lg">
+        </div>
         <div>
           <div className="header-row">
             <h1>Covid-19</h1>
-            <h3>Global Summaries</h3>
+            <h3>Global</h3>
             <p>
-              Updated at {moment.utc(new Date(globalUpdateTime)).local().format('ddd, MMM D hh:mm:ss a')}<br />
-              Data from <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
+              Data sources: <br /> <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a> <br />
+              <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
             </p>
           </div>
-          <div className="row-panel">
-            <div className="data-panel">
-              <div className="row">
-                <div className="column-4">
-                  <InputGroup>
-                    <Input
-                      value={searchTerm || ''}
-                      onChange={((e: any) => e.target && setSearchTerm(e.target.value))}
-                      placeholder="Enter search term here..."
-                    />
-                    {searchTerm &&
-                      <InputGroupAddon className={"addon"} addonType="append">
-                        <Button type="button" onClick={() => setSearchTerm(undefined)} title="Clear Search Term">
-                          <i className="material-icons">clear</i>
-                        </Button>
-                      </InputGroupAddon>
-                    }
-                  </InputGroup>
+          <div className="data-panel">
+            <div className="row border-box-sm">
+              <div className="column">
+                <div className='row-panel chart'>
+                  <CaseSummaryChart type="doughnut" summary={{ confirmed: data.global_total_cases, deaths: data.global_deaths, recovered: data.global_recovered }} />
                 </div>
-                <div className="column-4">
-                  <Select
-                    value={FilterSelectOptions.filter((v: any) => v.value === filterType)}
-                    placeholder="Sort By"
-                    options={FilterSelectOptions}
-                    onChange={(e: any) => { e && setFilterType(e.value); }} />
+                <div className="row-panel padding-top-lg">
+                  <h2>Global Cases: {data.global_total_cases.toLocaleString()}</h2>
                 </div>
-                <div className="column-4">
-                  <Select
-                    value={FilterDirectionOptions.filter((v: any) => v.value === filterDirection)}
-                    options={FilterDirectionOptions}
-                    onChange={(e: any) => { e && setFilterDirection(e.value); }} />
+                <div className="row">
+                  <div className="column-4 data-border active">Active: {(data.global_total_cases - data.global_recovered - data.global_deaths).toLocaleString()}</div>
+                  <div className="column-4 data-border recovered">Recovered: {data.global_recovered.toLocaleString()}</div>
+                  <div className="column-4 data-border deaths">Deaths: {data.global_deaths.toLocaleString()}</div>
                 </div>
+                <div className="row-panel">
+                  <div className="updates data-border">
+                    Updates <span>: </span>
+                    New cases : <strong>{data.global_new_cases.toLocaleString()}</strong> <span>- </span>
+                    New deaths : <strong>{data.global_new_deaths.toLocaleString()}</strong>
+                  </div>
+                </div>
+              </div>
+              <div className="column">
+                <GlobalSummaryChart summaries={getGlobalSummariesChartData()} />
               </div>
             </div>
           </div>
           <div className="data-panel">
-            {generateFilteredContents(countrySummaries)}
+            <div className="row-panel border-box-sm">
+              {globalData && <Global data={globalData} />}
+            </div>
           </div>
-          {selectedSummary &&
-            <Modal
-              isOpen={selectedSummary !== undefined}
-              toggle={() => setSelected(undefined)}
-            >
-              <ModalHeader className="chart-modal" toggle={() => setSelected(undefined)}>
-                <h2>{selectedSummary.Country}</h2>
-              </ModalHeader>
-              <ModalBody className="chart-modal">
-                {generateChartModal(selectedSummary)}
-              </ModalBody>
-              <ModalFooter className="chart-modal footer">
-                <Button className="btn" type="button" onClick={() => setSelected(undefined)}>Close Chart</Button>
-              </ModalFooter>
-            </Modal>
-          }
         </div>
-      }
-    </div>
-    <Button
-      type="button"
-      id="goToTopButton"
-      onClick={() => {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-      }}
-      title="Go to top"
-    >
-      Top
+      </div >
+      <Button
+        type="button"
+        id="goToTopButton"
+        onClick={() => {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }}
+        title="Go to top"
+      >
+        Top
     </Button>
-    <Button
-      type="button"
-      id="goToGlobalButton"
-      onClick={onGoToGlobalClicked}
-      title="Go to top"
-    >
-      Global
+      <Button
+        type="button"
+        id="goToGlobalButton"
+        onClick={onGoToGlobalClicked}
+        title="Go to top"
+      >
+        Global
     </Button>
-    <Modal
-      className="modal-lg"
-      isOpen={showTimeLine}
-      toggle={() => toggleTimeLine(false)}
-    >
-      <ModalHeader className="chart-modal" toggle={() => toggleTimeLine(false)}>
-        <h2>Local Timeline</h2>
-      </ModalHeader>
-      <ModalBody className="chart-modal">
-        {generateTimeLineChartModal()}
-      </ModalBody>
-      <ModalFooter className="chart-modal footer">
-        <Button className="btn" type="button" onClick={() => toggleTimeLine(false)}>Close Chart</Button>
-      </ModalFooter>
-    </Modal>
-  </>
+    </>
 }
 
 export default Main;

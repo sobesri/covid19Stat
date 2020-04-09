@@ -34,12 +34,16 @@ export interface CountrySummaryDto {
 }
 
 export interface CaseSummary {
-  date: Date,
+  date?: Date,
   confirmed: number,
   deaths: number,
   recovered: number
 }
 
+
+export interface GlobalSummary extends CaseSummary {
+  country: string;
+}
 
 export enum FilterType {
   Confirmed = 0,
@@ -94,5 +98,7 @@ export const LOCAL_TIMELINE: CaseSummary[] = [
   { date: new Date(2020, 3, 4), recovered: 27, deaths: 5, confirmed: 162 },
   { date: new Date(2020, 3, 5), recovered: 33, deaths: 5, confirmed: 176 },
   { date: new Date(2020, 3, 6), recovered: 38, deaths: 5, confirmed: 178 },
-  { date: new Date(2020, 3, 6), recovered: 42, deaths: 6, confirmed: 185 },
+  { date: new Date(2020, 3, 7), recovered: 42, deaths: 6, confirmed: 185 },
+  { date: new Date(2020, 3, 8), recovered: 44, deaths: 7, confirmed: 189 },
+  { date: new Date(2020, 3, 9), recovered: 47, deaths: 7, confirmed: 189 },
 ];

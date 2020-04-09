@@ -1,12 +1,12 @@
 import React from 'react';
 
 import './App.css';
-import Main from './content/Main';
+import Content from './content/Main';
 
 function App() {
   return (
     <div className="wrapper">
-      <Main />
+      <Content />
     </div>
   );
 }

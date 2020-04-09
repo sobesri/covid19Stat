@@ -12,11 +12,17 @@
   padding: 15px;
   margin: 15px;
   text-align: center;
-  background-color: #d3d3d3;
+  background-color: white;
   margin-bottom: 10px;
 
-  @media screen and (max-width: 850px) {
-    background-color: white;
+  &.header {
+    padding: 20px;
+
+    p {
+      margin-bottom: 0px;
+    }
+
+    color: black;
   }
 }
 
@@ -54,6 +60,7 @@
 .data-panel {
   margin: 0px 30px;
   text-align: center;
+  vertical-align: middle;
   color: rgb(216, 216, 216);
   // padding: 0px 12.5%;
 
@@ -71,7 +78,35 @@
     border: 0px;
     text-transform: wrap;
   }
-  
+
+  .updates {
+    padding: 5px;
+    margin: 10px;
+
+    span {
+      font-weight: bolder;
+      color: rgb(0, 180, 252)
+    }
+  }
+
+  .data-border {
+    box-shadow: 0px 0px 5px rgba(white, 0.4);
+
+    &.active {
+      box-shadow: 0px 0px 5px rgba(rgb(0, 119, 255), 0.6);
+    }
+
+    &.recovered {
+      box-shadow: 0px 0px 5px rgba(rgb(0, 221, 0), 0.6);
+
+    }
+
+    &.deaths {
+      box-shadow: 0px 0px 5px rgba(rgb(255, 72, 0), 0.6);
+
+    }
+  }
+
   .data-col {
     margin-bottom: 0px;
     padding: 2.5%;
@@ -80,6 +115,11 @@
 
   .chart {
     margin: 0px 20%;
+    text-align: center;
+
+    &.line {
+      margin: 0px 5%;
+    }
   }
 
   .row:after {
@@ -88,18 +128,13 @@
     clear: both;
   }
 
-  .header {
-    font-weight: 600;
-    font-size: 28px;
-    text-align: center;
-  }
-
   .title {
     padding-bottom: 0px;
 
   }
 
   @media screen and (max-width: 600px) {
+    margin: 0px 10px;
 
     .column {
       width: 100%;
@@ -108,10 +143,15 @@
 
     .chart {
       margin: 0px;
+
+      &.line {
+        margin: 0px;
+      }
     }
   }
 
   @media screen and (max-width: 850px) {
+    margin: 0px 10px;
 
     .title {
 
@@ -128,6 +168,10 @@
 
     .chart {
       margin: 0px;
+
+      &.line {
+        margin: 0px;
+      }
     }
   }
 }
@@ -150,18 +194,28 @@
 }
 
 .btn {
-  background-color: rgb(216, 216, 216);
+  background-color: rgba(255, 255, 255, 0.295);
   border: 0px;
-  color: black;
+  color: white;
   border-radius: 10px;
   transition: 0.4s;
   border: 0;
   cursor: pointer;
 
+  &.reload {
+    background-color: rgba(0, 0, 0, 0.205);
+    color: black;
+  }
+
   &:hover {
-    background-color: #00ccff81;
-    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.719);
+    color: black;
     border-radius: 30px;
+
+    &.reload {
+      background-color: rgba(0, 0, 0, 0.589);
+      color: rgb(255, 255, 255);
+    }
 
   }
 }
@@ -172,9 +226,9 @@
   bottom: 40px;
   right: 30px;
   z-index: 99;
-  background-color: #00ccff81;
   border: 0px;
-  background-color: rgb(216, 216, 216);
+  background-color: rgb(255, 255, 255);
+  color: black;
   border-radius: 10px;
   transition: 0.4s;
   border: 0;
@@ -199,9 +253,9 @@
   bottom: 40px;
   right: 30px;
   z-index: 99;
-  background-color: #00ccff81;
   border: 0px;
-  background-color: rgb(216, 216, 216);
+  background-color: rgb(255, 255, 255);
+  color: black;
   border-radius: 10px;
   transition: 0.4s;
   border: 0;
@@ -318,5 +372,16 @@
       padding: 10px;
     }
 
+  }
+}
+
+.border-box-sm {
+  border: 1px solid rgba(255, 255, 255, 0.342);
+  margin: 10px;
+  padding: 30px 10px;
+
+  @media screen and (max-width: 600px) {
+    margin: 0px;
+    padding: 10px 0px;
   }
 }

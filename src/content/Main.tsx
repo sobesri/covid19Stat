@@ -247,7 +247,7 @@ const Main = () => {
               <div className='chart padding-top-lg'>
                 <CaseSummaryChart type="doughnut" summary={{ confirmed: data.local_total_cases, deaths: data.local_deaths, recovered: data.local_recovered }} />
               </div>
-              <div className="row-panel">
+              <div className="row-panel padding-top-lg">
                 <h2>Total Cases: {data && data.local_total_cases.toLocaleString()}</h2>
               </div>
               <div className="row">

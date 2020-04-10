@@ -239,7 +239,7 @@ const Main = () => {
             Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}<br />
             Data source: <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
           </p>
-          <Button className="btn reload" type="button" onClick={() => getData()}>Reload data</Button>
+          <Button className="btn reload" type="button" title="Reload data" onClick={() => getData()}>Reload data</Button>
         </div>
         <div className="data-panel">
           <div className="row border-box-sm">

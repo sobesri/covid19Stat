@@ -12,21 +12,21 @@ const GlobalSummaryChart = ({ summaries }: Props) => {
     labels: summaries.map((d: GlobalSummary) => d.country.length > 10 ? d.country.replace(/[a-z ]/g, '') : d.country),
     datasets: [
       {
-        label: 'Confirmed',
-        data: summaries.map((d: GlobalSummary) => d.confirmed),
-        backgroundColor: 'rgb(0, 119, 255)',
+        label: 'Active',
+        data: summaries.map((d: GlobalSummary) => d.active),
+        backgroundColor: 'rgba(0, 119, 255, 0.8)',
         borderWidth: 0
       },
       {
         label: 'Recovered',
         data: summaries.map((d: GlobalSummary) => d.recovered),
-        backgroundColor: 'rgb(0, 221, 0)',
+        backgroundColor: 'rgb(0, 221, 0, 0.8)',
         borderWidth: 0
       },
       {
         label: 'Deaths',
         data: summaries.map((d: GlobalSummary) => d.deaths),
-        backgroundColor: 'rgb(255, 72, 0)',
+        backgroundColor: 'rgb(255, 72, 0, 0.8)',
         borderWidth: 0
       }
     ]

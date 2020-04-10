@@ -181,7 +181,7 @@ const Main = () => {
       </div>
       <Chart className="padding-top-lg" width="" type="line" data={data} options={timelineChartOptions} />
       <div>
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 9, 13, 12, 55)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 10, 9, 0, 7)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
       </div>
       <div>
         Source:&nbsp;
@@ -207,6 +207,7 @@ const Main = () => {
     let data: GlobalSummary[] = firstFew.map((c: CountrySummaryDto) => {
       return ({
         confirmed: c.TotalConfirmed,
+        active: c.TotalConfirmed - c.TotalRecovered - c.TotalDeaths,
         deaths: c.TotalDeaths,
         recovered: c.TotalRecovered,
         country: c.Country
@@ -233,8 +234,7 @@ const Main = () => {
     <>
       <div id="local">
         <div className="header-row">
-          <h1>Covid-19</h1>
-          <h3>Sri Lanka</h3>
+          <h1>Sri Lankan Covid-19 Outbreak Status</h1>
           <p>
             Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}<br />
             Data source: <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
@@ -279,8 +279,7 @@ const Main = () => {
         </div>
         <div>
           <div className="header-row">
-            <h1>Covid-19</h1>
-            <h3>Global</h3>
+            <h1>Global Covid-19 Outbreak Status</h1>
             <p>
               Data sources: <br /> <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a> <br />
               <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
@@ -308,7 +307,7 @@ const Main = () => {
                   </div>
                 </div>
               </div>
-              <div className="column">
+              <div className="column chart-bar">
                 <GlobalSummaryChart summaries={getGlobalSummariesChartData()} />
               </div>
             </div>

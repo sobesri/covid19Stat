@@ -111,7 +111,7 @@ const Global = (props: Props) => {
   return (
     <>
       <div className="header-row header">
-        <h3>Country Summaries</h3>
+        <h3>Outbreak summaries across the world</h3>
         <p>
           Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}
         </p>

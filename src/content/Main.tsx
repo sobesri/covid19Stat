@@ -109,6 +109,13 @@ const Main = () => {
           label: 'Confirmed',
           data: LOCAL_TIMELINE.map((d: CaseSummary) => d.confirmed),
           // backgroundColor: '#F1C40F',
+          borderColor: 'rgb(0, 0, 0)',
+          // borderWidth: 0
+        },
+        {
+          label: 'Active',
+          data: LOCAL_TIMELINE.map((d: CaseSummary) => (d.confirmed - d.deaths - d.recovered)),
+          // backgroundColor: '#F1C40F',
           borderColor: 'rgb(0, 119, 255)',
           // borderWidth: 0
         },
@@ -181,7 +188,7 @@ const Main = () => {
       </div>
       <Chart className="padding-top-lg" width="" type="line" data={data} options={timelineChartOptions} />
       <div>
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 12, 13, 30, 40)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 12, 15, 15, 14)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
       </div>
       <div>
         Source:&nbsp;

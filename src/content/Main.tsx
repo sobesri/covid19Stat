@@ -109,7 +109,7 @@ const Main = () => {
           label: 'Confirmed',
           data: LOCAL_TIMELINE.map((d: CaseSummary) => d.confirmed),
           // backgroundColor: '#F1C40F',
-          borderColor: 'rgb(0, 0, 0)',
+          borderColor: 'rgb(255, 255, 255)',
           // borderWidth: 0
         },
         {

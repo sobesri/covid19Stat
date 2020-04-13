@@ -5,9 +5,11 @@ import Content from './content/Main';
 
 function App() {
   return (
-    <div className="wrapper">
-      <Content />
-    </div>
+    <>
+      <div className="wrapper">
+        <Content />
+      </div>
+    </>
   );
 }
 

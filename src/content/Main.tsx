@@ -8,6 +8,7 @@ import moment from 'moment';
 import Global from '../Components/Global';
 import CaseSummaryChart from '../Components/Dashboard/caseSummaryChart';
 import GlobalSummaryChart from '../Components/Dashboard/globalSummaryChart';
+import DevDetail from '../Components/DevDetail';
 
 const Main = () => {
   const [data, setData] = useState<Response_data>();
@@ -188,7 +189,7 @@ const Main = () => {
       </div>
       <Chart className="padding-top-lg" width="" type="line" data={data} options={timelineChartOptions} />
       <div>
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 13, 8, 13, 3)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 13, 19, 42, 23)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
       </div>
       <div>
         Source:&nbsp;
@@ -246,12 +247,12 @@ const Main = () => {
             Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}<br />
             Data source: <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
           </p>
+          <DevDetail />
           <div className="data-panel row special-box">
             <div className="column-4">සුභ අලුත් අවුරුද්දක් වේවා!</div>
             <div className="column-4">இனிய புத்தாண்டு நாள் வாழ்த்துக்கள்!</div>
             <div className="column-4">Happy Sinhala and Tamil New Year!</div>
           </div>
-          <Button className="btn reload" type="button" title="Reload data" onClick={() => getData()}>Reload data</Button>
         </div>
         <div className="data-panel">
           <div className="row border-box-sm">
@@ -325,6 +326,8 @@ const Main = () => {
             </div>
           </div>
           <div className="data-panel">
+            <div className="padding-top-md">
+            </div>
             <div className="row-panel border-box-sm">
               {globalData && <Global data={globalData} />}
             </div>
@@ -332,6 +335,7 @@ const Main = () => {
         </div>
       </div >
       <Button
+        className="floating-btn"
         type="button"
         id="goToTopButton"
         onClick={() => {
@@ -343,6 +347,7 @@ const Main = () => {
         Top
     </Button>
       <Button
+        className="floating-btn"
         type="button"
         id="goToGlobalButton"
         onClick={onGoToGlobalClicked}
@@ -350,6 +355,19 @@ const Main = () => {
       >
         Global
     </Button>
+      <Button
+        className="floating-btn"
+        type="button"
+        id="reloadButton"
+        title="Reload data"
+        onClick={() => getData()}>
+        <span>
+          Reload
+          </span>
+        <i className="material-icons">
+          refresh
+          </i>
+      </Button>
     </>
 }
 

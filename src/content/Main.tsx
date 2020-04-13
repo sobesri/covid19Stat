@@ -188,7 +188,7 @@ const Main = () => {
       </div>
       <Chart className="padding-top-lg" width="" type="line" data={data} options={timelineChartOptions} />
       <div>
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 12, 15, 15, 14)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 13, 8, 13, 3)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
       </div>
       <div>
         Source:&nbsp;
@@ -246,6 +246,11 @@ const Main = () => {
             Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}<br />
             Data source: <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
           </p>
+          <div className="data-panel row special-box">
+            <div className="column-4">සුභ අලුත් අවුරුද්දක් වේවා!</div>
+            <div className="column-4">இனிய புத்தாண்டு நாள் வாழ்த்துக்கள்!</div>
+            <div className="column-4">Happy Sinhala and Tamil New Year!</div>
+          </div>
           <Button className="btn reload" type="button" title="Reload data" onClick={() => getData()}>Reload data</Button>
         </div>
         <div className="data-panel">

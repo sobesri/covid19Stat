@@ -11,22 +11,22 @@
 .dev-detail {
   background: black;
   padding: 10px 200px;
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
   text-align: center;
 
   i {
-    color: white;
+    color: rgba(255, 255, 255, 0.8);
     position: relative;
     top: -2px;
 
     &:hover {
-      color: #00ccff81;
+      color: rgba(0, 162, 255, 0.8);
       background-color: transparent;
     }
   }
 
   button {
-    color: white;
+    color: rgba(255, 255, 255, 0.8);
     background-color: transparent;
     padding: 0px 10px;
 

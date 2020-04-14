@@ -248,6 +248,11 @@ const Main = () => {
             Data source: <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
           </p>
           <DevDetail />
+          {/* <div className="data-panel row special-box">
+            <div className="column-4">සුභ අලුත් අවුරුද්දක් වේවා!</div>
+            <div className="column-4">இனிய புத்தாண்டு நாள் வாழ்த்துக்கள்!</div>
+            <div className="column-4">Happy Sinhala and Tamil New Year!</div>
+          </div> */}
         </div>
         <div className="data-panel">
           <div className="row border-box-sm">

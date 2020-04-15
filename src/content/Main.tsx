@@ -370,7 +370,7 @@ const Main = () => {
         type="button"
         id="goToGlobalButton"
         onClick={onGoToGlobalClicked}
-        title="Go to top"
+        title="Go to Global"
       >
         Global
     </Button>

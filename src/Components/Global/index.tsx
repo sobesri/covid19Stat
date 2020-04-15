@@ -142,10 +142,10 @@ const Global = (props: Props) => {
           rowsPerPageOptions={[5, 10, 20]}
           onRowClick={(e: any) => { openSummaryModal(e.data) }}>
           <Column field="Country" header="Country" sortable />
-          <Column field="TotalConfirmed" header="Total Confirmed" sortable />
-          <Column field="TotalActive" header="Total Active" sortable body={(val: CountrySummaryDto) => (val.TotalConfirmed - val.TotalRecovered - val.TotalDeaths)} />
-          <Column field="TotalDeaths" header="Total Deaths" sortable />
-          <Column field="TotalRecovered" header="Total Recovered" sortable />
+          <Column field="TotalConfirmed" header="Total Confirmed" sortable body={(val: CountrySummaryDto) => val.TotalConfirmed.toLocaleString()} />
+          <Column field="TotalActive" header="Total Active" sortable body={(val: CountrySummaryDto) => (val.TotalConfirmed - val.TotalRecovered - val.TotalDeaths).toLocaleString()} />
+          <Column field="TotalRecovered" header="Total Recovered" sortable body={(val: CountrySummaryDto) => val.TotalRecovered.toLocaleString()} />
+          <Column field="TotalDeaths" header="Total Deaths" sortable body={(val: CountrySummaryDto) => val.TotalDeaths.toLocaleString()} />
           <Column
             body={
               (val: CountrySummaryDto) =>

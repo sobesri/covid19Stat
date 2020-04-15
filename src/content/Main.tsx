@@ -10,11 +10,15 @@ import CaseSummaryChart from '../Components/Dashboard/caseSummaryChart';
 import GlobalSummaryChart from '../Components/Dashboard/globalSummaryChart';
 import DevDetail from '../Components/DevDetail';
 
+const MEAN_LOCAL_TIMELINE = LOCAL_TIMELINE.filter((d: CaseSummary) => d.date && d.date.getDay() === new Date().getDay());
+
 const Main = () => {
   const [data, setData] = useState<Response_data>();
   const [updatedDate, setDate] = useState<Date>(new Date());
   const [time, setTime] = useState(new Date().getTime());
   const [globalData, setGlobalData] = useState<Full_response_data_global>();
+  const [timelineData, setTimelineData] = useState<CaseSummary[]>(MEAN_LOCAL_TIMELINE);
+  const [timelineToggle, setTimelineToggle] = useState(false);
 
   useEffect(() => {
     getData();
@@ -103,33 +107,35 @@ const Main = () => {
 
   const generateTimeLineChartModal = () => {
 
+    let displayMean = true;
+
     let data = {
-      labels: LOCAL_TIMELINE.map((d: CaseSummary) => moment.utc(d.date ? new Date(d.date) : new Date()).local().format('MMM D')),
+      labels: timelineData.map((d: CaseSummary) => moment.utc(d.date ? new Date(d.date) : new Date()).local().format('MMM D')),
       datasets: [
         {
           label: 'Confirmed',
-          data: LOCAL_TIMELINE.map((d: CaseSummary) => d.confirmed),
+          data: timelineData.map((d: CaseSummary) => d.confirmed),
           // backgroundColor: '#F1C40F',
           borderColor: 'rgb(255, 255, 255)',
           // borderWidth: 0
         },
         {
           label: 'Active',
-          data: LOCAL_TIMELINE.map((d: CaseSummary) => (d.confirmed - d.deaths - d.recovered)),
+          data: timelineData.map((d: CaseSummary) => (d.confirmed - d.deaths - d.recovered)),
           // backgroundColor: '#F1C40F',
           borderColor: 'rgb(0, 119, 255)',
           // borderWidth: 0
         },
         {
           label: 'Recovered',
-          data: LOCAL_TIMELINE.map((d: CaseSummary) => d.recovered),
+          data: timelineData.map((d: CaseSummary) => d.recovered),
           // backgroundColor: '#27AE60',
           borderColor: 'rgb(0, 221, 0)',
           // borderWidth: 0
         },
         {
           label: 'Deaths',
-          data: LOCAL_TIMELINE.map((d: CaseSummary) => d.deaths),
+          data: timelineData.map((d: CaseSummary) => d.deaths),
           // backgroundColor: '#CB4335',
           borderColor: 'rgb(255, 72, 0)',
           // borderWidth: 0
@@ -139,7 +145,7 @@ const Main = () => {
 
     const timelineChartOptions =
     {
-      aspectRatio: 1.2,
+      aspectRatio: timelineToggle ? 1.2 : 1,
       responsive: true,
       legend: {
         labels: {
@@ -152,10 +158,13 @@ const Main = () => {
           left: 0,
           right: 0,
           top: 0,
-          bottom: 20
+          bottom: 10
         }
       },
       scales: {
+        yAxes: [{
+          display: false,
+        }],
         xAxes: [{
           id: 'date',
           type: 'category',
@@ -183,23 +192,33 @@ const Main = () => {
       }
     };
 
+    const toggleTimelineDisplay = () => {
+      if (timelineToggle) {
+        setTimelineToggle(false);
+        setTimelineData(MEAN_LOCAL_TIMELINE);
+
+      } else {
+        setTimelineToggle(true);
+        setTimelineData(LOCAL_TIMELINE);
+      }
+    }
+
     return <>
       <div className='title'>
-        <strong>Mean Progression of the outbreak</strong>
-      </div>
-      <Chart className="padding-top-lg" width="" type="line" data={data} options={timelineChartOptions} />
-      <div>
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 15, 10, 50, 21)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
-      </div>
-      <div>
-        Source:&nbsp;
+        <strong>{timelineToggle ? '' : 'Mean '}Progression of the outbreak</strong><br />
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 15, 10, 50, 21)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small><br />
+          Source:&nbsp;
         <a
           href="http://www.epid.gov.lk/web/index.php?option=com_content&view=article&id=225&Itemid=518&lang=en"
           target="_blank"
           rel="noopener noreferrer"
         >
           epid.gov.lk/
-        </a>
+          </a>
+      </div>
+      <Chart className={timelineToggle ? '' : 'mean'} width="" type="line" data={data} options={timelineChartOptions} />
+      <div>
+        <Button className="btn-sm timeline-toggle-btn" type="button" onClick={toggleTimelineDisplay}>Show {timelineToggle ? 'Mean' : 'Complete'} Timeline</Button>
       </div>
     </>
   }

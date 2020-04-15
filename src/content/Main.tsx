@@ -185,7 +185,7 @@ const Main = () => {
 
     return <>
       <div className='title'>
-        <strong>Progression of the outbreak</strong>
+        <strong>Mean Progression of the outbreak</strong>
       </div>
       <Chart className="padding-top-lg" width="" type="line" data={data} options={timelineChartOptions} />
       <div>

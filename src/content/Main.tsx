@@ -107,8 +107,6 @@ const Main = () => {
 
   const generateTimeLineChartModal = () => {
 
-    let displayMean = true;
-
     let data = {
       labels: timelineData.map((d: CaseSummary) => moment.utc(d.date ? new Date(d.date) : new Date()).local().format('MMM D')),
       datasets: [
@@ -130,14 +128,14 @@ const Main = () => {
           label: 'Recovered',
           data: timelineData.map((d: CaseSummary) => d.recovered),
           // backgroundColor: '#27AE60',
-          borderColor: 'rgb(0, 221, 0)',
+          borderColor: 'rgb(39, 233, 0)',
           // borderWidth: 0
         },
         {
           label: 'Deaths',
           data: timelineData.map((d: CaseSummary) => d.deaths),
           // backgroundColor: '#CB4335',
-          borderColor: 'rgb(255, 72, 0)',
+          borderColor: 'rgb(255, 38, 0)',
           // borderWidth: 0
         }
       ]

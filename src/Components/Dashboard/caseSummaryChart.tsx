@@ -27,8 +27,8 @@ const CaseSummaryChart = ({ summary, type, width }: Props) => {
         ],
         backgroundColor: [
           'rgb(0, 119, 255)',
-          'rgb(0, 221, 0)',
-          'rgb(255, 72, 0)',
+          'rgb(39, 233, 0)',
+          'rgb(255, 38, 0)',
         ],
         borderWidth: 0
       }

@@ -57,8 +57,8 @@ const Global = (props: Props) => {
     let data = {
       labels: [
         'Active',
-        'Deaths',
-        'Recovered'
+        'Recovered',
+        'Deaths'
       ],
       datasets: [
         {
@@ -69,9 +69,9 @@ const Global = (props: Props) => {
             summary.TotalRecovered
           ],
           backgroundColor: [
-            '#F1C40F', // yellow
-            '#CB4335', // red
-            "#27AE60" // green
+            'rgb(0, 119, 255)',
+            'rgb(39, 233, 0)',
+            'rgb(255, 38, 0)'
           ],
           borderWidth: 0
         }
@@ -141,11 +141,11 @@ const Global = (props: Props) => {
           emptyMessage="No Records Found"
           rowsPerPageOptions={[5, 10, 20]}
           onRowClick={(e: any) => { openSummaryModal(e.data) }}>
-          <Column field="Country" header="Country" sortable />
-          <Column field="TotalConfirmed" header="Total Confirmed" sortable body={(val: CountrySummaryDto) => val.TotalConfirmed.toLocaleString()} />
-          <Column field="TotalActive" header="Total Active" sortable body={(val: CountrySummaryDto) => (val.TotalConfirmed - val.TotalRecovered - val.TotalDeaths).toLocaleString()} />
-          <Column field="TotalRecovered" header="Total Recovered" sortable body={(val: CountrySummaryDto) => val.TotalRecovered.toLocaleString()} />
-          <Column field="TotalDeaths" header="Total Deaths" sortable body={(val: CountrySummaryDto) => val.TotalDeaths.toLocaleString()} />
+          <Column className="country" field="Country" header="Country" sortable />
+          <Column className="confirmed" field="TotalConfirmed" header="Total Confirmed" sortable body={(val: CountrySummaryDto) => val.TotalConfirmed.toLocaleString()} />
+          <Column className="active" field="TotalActive" header="Total Active" sortable body={(val: CountrySummaryDto) => (val.TotalConfirmed - val.TotalRecovered - val.TotalDeaths).toLocaleString()} />
+          <Column className="recovered" field="TotalRecovered" header="Total Recovered" sortable body={(val: CountrySummaryDto) => val.TotalRecovered.toLocaleString()} />
+          <Column className="deaths" field="TotalDeaths" header="Total Deaths" sortable body={(val: CountrySummaryDto) => val.TotalDeaths.toLocaleString()} />
           <Column
             body={
               (val: CountrySummaryDto) =>

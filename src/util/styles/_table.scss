@@ -70,23 +70,43 @@
               width: 15%;
             }
 
+            .p-sortable-column-icon {
+              color: white;
+            }
+
             &.p-highlight {
               color: black;
-              background-color: rgb(235, 233, 233);
+              background-color: rgb(223, 223, 223);
+
+              .p-sortable-column-icon {
+                color: black;
+              }
 
               &.active {
                 color: white;
                 background-color: rgba(0, 0, 255, 0.4);
+
+                .p-sortable-column-icon {
+                  color: white;
+                }
               }
 
               &.recovered {
                 color: white;
                 background-color: rgba(0, 255, 0, 0.4);
+
+                .p-sortable-column-icon {
+                  color: white;
+                }
               }
 
               &.deaths {
                 color: white;
-                background-color: rgba(255, 0, 0, 0.4)
+                background-color: rgba(255, 0, 0, 0.4);
+
+                .p-sortable-column-icon {
+                  color: white;
+                }
               }
             }
 
@@ -98,8 +118,18 @@
               &:hover {
                 color: white;
 
-                &.confirmed {
+                .p-sortable-column-icon {
+                  color: white;
+                }
+
+                &.confirmed,
+                &.country {
                   color: black;
+
+                  .p-sortable-column-icon {
+                    color: black;
+                  }
+
                 }
 
                 &.active {
@@ -116,11 +146,6 @@
 
               }
 
-              .p-sortable-column-icon {
-                font-size: 12px;
-                color: white;
-                margin-top: -3px;
-              }
             }
           }
         }

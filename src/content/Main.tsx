@@ -189,7 +189,7 @@ const Main = () => {
       </div>
       <Chart className="padding-top-lg" width="" type="line" data={data} options={timelineChartOptions} />
       <div>
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 14, 19, 17, 11)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 15, 10, 50, 21)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small>
       </div>
       <div>
         Source:&nbsp;

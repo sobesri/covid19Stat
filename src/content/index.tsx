@@ -6,13 +6,13 @@ import { Chart } from 'primereact/chart';
 
 import moment from 'moment';
 import Global from '../Components/Global';
-import CaseSummaryChart from '../Components/Dashboard/caseSummaryChart';
-import GlobalSummaryChart from '../Components/Dashboard/globalSummaryChart';
+import CaseSummaryChart from '../Components/SummaryChart/caseSummaryChart';
+import GlobalSummaryChart from '../Components/SummaryChart/globalSummaryChart';
 import DevDetail from '../Components/DevDetail';
 
 const MEAN_LOCAL_TIMELINE = LOCAL_TIMELINE.filter((d: CaseSummary) => d.date && d.date.getDay() === new Date().getDay());
 
-const Main = () => {
+const Content = () => {
   const [data, setData] = useState<Response_data>();
   const [updatedDate, setDate] = useState<Date>(new Date());
   const [time, setTime] = useState(new Date().getTime());
@@ -388,4 +388,4 @@ const Main = () => {
     </>
 }
 
-export default Main;
+export default Content;

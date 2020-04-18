@@ -204,7 +204,7 @@ const Content = () => {
     return <>
       <div className='title'>
         <strong>{timelineToggle ? '' : 'Mean '}Progression of the outbreak</strong><br />
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 18, 10, 29, 23)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small><br />
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 18, 18, 13, 11)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small><br />
           Source:&nbsp;
         <a
           href="http://www.epid.gov.lk/web/index.php?option=com_content&view=article&id=225&Itemid=518&lang=en"

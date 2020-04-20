@@ -10,7 +10,7 @@ import CaseSummaryChart from '../Components/SummaryChart/caseSummaryChart';
 import GlobalSummaryChart from '../Components/SummaryChart/globalSummaryChart';
 import DevDetail from '../Components/DevDetail';
 
-const MEAN_LOCAL_TIMELINE = LOCAL_TIMELINE.filter((d: CaseSummary) => d.date && d.date.getDay() === new Date().getDay());
+const MEAN_LOCAL_TIMELINE = LOCAL_TIMELINE.filter((d: CaseSummary) => d.date && d.date.getDay() === (LOCAL_TIMELINE[LOCAL_TIMELINE.length - 1].date || new Date()).getDay());
 
 const Content = () => {
   const [data, setData] = useState<Response_data>();

@@ -10,15 +10,11 @@ import CaseSummaryChart from '../Components/SummaryChart/caseSummaryChart';
 import GlobalSummaryChart from '../Components/SummaryChart/globalSummaryChart';
 import DevDetail from '../Components/DevDetail';
 
-const MEAN_LOCAL_TIMELINE = LOCAL_TIMELINE.filter((d: CaseSummary) => d.date && d.date.getDay() === (LOCAL_TIMELINE[LOCAL_TIMELINE.length - 1].date || new Date()).getDay());
-
 const Content = () => {
   const [data, setData] = useState<Response_data>();
   const [updatedDate, setDate] = useState<Date>(new Date());
   const [time, setTime] = useState(new Date().getTime());
   const [globalData, setGlobalData] = useState<Full_response_data_global>();
-  const [timelineData, setTimelineData] = useState<CaseSummary[]>(MEAN_LOCAL_TIMELINE);
-  const [timelineToggle, setTimelineToggle] = useState(false);
 
   useEffect(() => {
     getData();
@@ -107,6 +103,8 @@ const Content = () => {
 
   const generateTimeLineChartModal = () => {
 
+    let timelineData = LOCAL_TIMELINE;
+
     let data = {
       labels: timelineData.map((d: CaseSummary) => moment.utc(d.date ? new Date(d.date) : new Date()).local().format('MMM D')),
       datasets: [
@@ -143,11 +141,31 @@ const Content = () => {
 
     const timelineChartOptions =
     {
-      aspectRatio: timelineToggle ? 1.2 : 1,
-      responsive: true,
+      aspectRatio: 1.2,
+      lineWidth: [0.03],
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
       legend: {
         labels: {
-          fontColor: '#fff'
+          fontSize: 12,
+          fontColor: '#fff',
+          generateLabels: (chart: any) => {
+            const data = chart.data;
+            if (data.datasets.length && data.datasets.length) {
+              return data.datasets
+                .map((d: any, i: number) =>
+                  ({
+                    text: d.label,
+                    fillStyle: d.borderColor,
+                    index: i
+                  })
+                );
+            }
+            return [];
+          }
         },
         position: 'bottom'
       },
@@ -155,18 +173,30 @@ const Content = () => {
         padding: {
           left: 0,
           right: 0,
-          top: 0,
+          top: 20,
           bottom: 10
         }
       },
       scales: {
         yAxes: [{
-          display: false,
+          position: 'right',
+          gridLines: {
+            color: "rgba(255, 255, 255, 0.06)",
+            borderDash: [3]
+          },
+          ticks: {
+            fontSize: 10,
+          }
         }],
         xAxes: [{
           id: 'date',
           type: 'category',
+          gridLines: {
+            color: "rgba(255, 255, 255, 0.04)",
+            borderDash: [6]
+          },
           ticks: {
+            fontSize: 10,
             callback: function (label: any) {
               var labelArray = label.split(" ");
               return labelArray[1];
@@ -176,10 +206,9 @@ const Content = () => {
         {
           id: 'month',
           type: 'category',
-          gridLines: {
-            drawOnChartArea: false, // only want the grid lines for one axis to show up
-          },
           ticks: {
+            fontSize: 10,
+            color: "rgba(255, 255, 255, 1)",
             callback: function (label: any) {
               var labelArray = label.split(" ");
               return labelArray[0];
@@ -190,21 +219,10 @@ const Content = () => {
       }
     };
 
-    const toggleTimelineDisplay = () => {
-      if (timelineToggle) {
-        setTimelineToggle(false);
-        setTimelineData(MEAN_LOCAL_TIMELINE);
-
-      } else {
-        setTimelineToggle(true);
-        setTimelineData(LOCAL_TIMELINE);
-      }
-    }
-
     return <>
       <div className='title'>
-        <strong>{timelineToggle ? '' : 'Mean '}Progression of the outbreak</strong><br />
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 20, 19, 20, 13)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small><br />
+        <strong>Progression of the outbreak</strong><br />
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 20, 19, 43, 22)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small><br />
           Source:&nbsp;
         <a
           href="http://www.epid.gov.lk/web/index.php?option=com_content&view=article&id=225&Itemid=518&lang=en"
@@ -214,10 +232,7 @@ const Content = () => {
           epid.gov.lk/
           </a>
       </div>
-      <Chart className={timelineToggle ? '' : 'mean'} width="" type="line" data={data} options={timelineChartOptions} />
-      <div>
-        <Button className="btn-sm timeline-toggle-btn" type="button" onClick={toggleTimelineDisplay}>Show {timelineToggle ? 'Mean' : 'Complete'} Timeline</Button>
-      </div>
+      <Chart width="" type="line" data={data} options={timelineChartOptions} />
     </>
   }
 

@@ -106,35 +106,35 @@ const Content = () => {
     let timelineData = LOCAL_TIMELINE;
 
     let data = {
-      labels: timelineData.map((d: CaseSummary) => moment.utc(d.date ? new Date(d.date) : new Date()).local().format('MMM D')),
+      labels: timelineData.map((d: CaseSummary) => moment.utc(d.date ? new Date(d.date) : new Date()).local().format('MMM D Y')),
       datasets: [
         {
           label: 'Confirmed',
           data: timelineData.map((d: CaseSummary) => d.confirmed),
-          // backgroundColor: '#F1C40F',
+          backgroundColor: 'rgb(255, 255, 255)',
           borderColor: 'rgb(255, 255, 255)',
-          // borderWidth: 0
+          fill: false,
         },
         {
           label: 'Active',
           data: timelineData.map((d: CaseSummary) => (d.confirmed - d.deaths - d.recovered)),
-          // backgroundColor: '#F1C40F',
+          backgroundColor: 'rgb(0, 119, 255)',
           borderColor: 'rgb(0, 119, 255)',
-          // borderWidth: 0
+          fill: false,
         },
         {
           label: 'Recovered',
           data: timelineData.map((d: CaseSummary) => d.recovered),
-          // backgroundColor: '#27AE60',
+          backgroundColor: 'rgb(39, 233, 0)',
           borderColor: 'rgb(39, 233, 0)',
-          // borderWidth: 0
+          fill: false,
         },
         {
           label: 'Deaths',
           data: timelineData.map((d: CaseSummary) => d.deaths),
-          // backgroundColor: '#CB4335',
+          backgroundColor: 'rgb(255, 38, 0)',
           borderColor: 'rgb(255, 38, 0)',
-          // borderWidth: 0
+          fill: false,
         }
       ]
     };
@@ -142,30 +142,17 @@ const Content = () => {
     const timelineChartOptions =
     {
       aspectRatio: 1.2,
-      lineWidth: [0.03],
       elements: {
         point: {
-          radius: 0
+          radius: 0,
+          hoverRadius: 2,
+          hitRadius: 5,
         }
       },
       legend: {
         labels: {
           fontSize: 12,
-          fontColor: '#fff',
-          generateLabels: (chart: any) => {
-            const data = chart.data;
-            if (data.datasets.length && data.datasets.length) {
-              return data.datasets
-                .map((d: any, i: number) =>
-                  ({
-                    text: d.label,
-                    fillStyle: d.borderColor,
-                    index: i
-                  })
-                );
-            }
-            return [];
-          }
+          fontColor: '#fff'
         },
         position: 'bottom'
       },
@@ -196,10 +183,15 @@ const Content = () => {
             borderDash: [6]
           },
           ticks: {
-            fontSize: 10,
+            autoSkip: false,
+            maxRotation: 0,
+            minRotation: 0,
             callback: function (label: any) {
-              var labelArray = label.split(" ");
-              return labelArray[1];
+              let labelDate = moment.utc(label).toDate();
+              if (labelDate.getDay() === 1) {
+                var labelArray = label.split(" ");
+                return labelArray[1];
+              }
             }
           }
         },
@@ -207,11 +199,16 @@ const Content = () => {
           id: 'month',
           type: 'category',
           ticks: {
-            fontSize: 10,
+            autoSkip: false,
+            maxRotation: 0,
+            minRotation: 0,
             color: "rgba(255, 255, 255, 1)",
             callback: function (label: any) {
-              var labelArray = label.split(" ");
-              return labelArray[0];
+              let labelDate = moment.utc(label).toDate();
+              if (labelDate.getDay() === 1) {
+                var labelArray = label.split(" ");
+                return `${labelArray[0]}, ${labelArray[2]}`;
+              }
             }
           }
         }

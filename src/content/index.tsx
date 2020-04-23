@@ -207,7 +207,7 @@ const Content = () => {
               let labelDate = moment.utc(label).toDate();
               if (labelDate.getDay() === 1) {
                 var labelArray = label.split(" ");
-                return `${labelArray[0]}, ${labelArray[2]}`;
+                return `${labelArray[0]}`;
               }
             }
           }

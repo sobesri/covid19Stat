@@ -102,7 +102,8 @@ const Global = (props: Props) => {
   }
 
   useEffect(() => {
-    setContents(props.data.Countries.sort(compare));
+    let data = props.data.Countries.filter((d: CountrySummaryDto) => d.TotalConfirmed > 0)
+    setContents(data.sort(compare));
     setUpdatedDate(props.data.Date);
   }, [props.data])
 

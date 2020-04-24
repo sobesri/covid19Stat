@@ -159,11 +159,11 @@ const Content = () => {
     };
 
     if (window.innerWidth > 600) {
-      data.labels.push("Daily Growth");
+      data.labels.push("Daily Cases");
       data.datasets.push(
         {
           type: "bar",
-          label: 'Daily Growth',
+          label: 'Daily Cases',
           data: caseGrowth,
           backgroundColor: 'rgba(255, 255, 255, 0.4)',
           borderColor: 'rgba(255, 255, 255, 0.4',

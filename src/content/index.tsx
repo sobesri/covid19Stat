@@ -32,6 +32,16 @@ const Content = () => {
   }, [time]);
 
   useLayoutEffect(() => {
+
+    const handleResize = () => {
+      window.location.reload(false);
+    }
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useLayoutEffect(() => {
     const handleScroll = () => {
       var goToTop = document.getElementById("goToTopButton");
       var goToGlobal = document.getElementById("goToGlobalButton");
@@ -144,7 +154,13 @@ const Content = () => {
           backgroundColor: 'rgb(255, 38, 0)',
           borderColor: 'rgb(255, 38, 0)',
           fill: false,
-        },
+        }
+      ]
+    };
+
+    if (window.innerWidth > 600) {
+      data.labels.push("Daily Growth");
+      data.datasets.push(
         {
           type: "bar",
           label: 'Daily Growth',
@@ -153,12 +169,12 @@ const Content = () => {
           borderColor: 'rgba(255, 255, 255, 0.4',
           fill: false,
         }
-      ]
-    };
+      );
+    }
 
     const timelineChartOptions =
     {
-      aspectRatio: 1.2,
+      aspectRatio: window.innerWidth > 600 ? 1.2 : 0.7,
       elements: {
         point: {
           radius: 0,

@@ -219,7 +219,7 @@ const Content = () => {
     return <>
       <div className='title'>
         <strong>Progression of the outbreak</strong><br />
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 23, 21, 26, 44)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small><br />
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 3, 24, 9, 25, 57)).local().format('ddd, MMM D hh:mm:ss a')}</strong></small><br />
           Source:&nbsp;
         <a
           href="http://www.epid.gov.lk/web/index.php?option=com_content&view=article&id=225&Itemid=518&lang=en"

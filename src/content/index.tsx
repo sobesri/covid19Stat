@@ -105,10 +105,16 @@ const Content = () => {
 
     let timelineData = LOCAL_TIMELINE;
 
+    let caseGrowth = LOCAL_TIMELINE.map((d: CaseSummary, index: number) => {
+      if (index === 0) return d.confirmed;
+      else return LOCAL_TIMELINE[index].confirmed - LOCAL_TIMELINE[index - 1].confirmed
+    })
+
     let data = {
       labels: timelineData.map((d: CaseSummary) => moment.utc(d.date ? new Date(d.date) : new Date()).local().format('MMM D Y')),
       datasets: [
         {
+          type: "line",
           label: 'Confirmed',
           data: timelineData.map((d: CaseSummary) => d.confirmed),
           backgroundColor: 'rgb(255, 255, 255)',
@@ -116,6 +122,7 @@ const Content = () => {
           fill: false,
         },
         {
+          type: "line",
           label: 'Active',
           data: timelineData.map((d: CaseSummary) => (d.confirmed - d.deaths - d.recovered)),
           backgroundColor: 'rgb(0, 119, 255)',
@@ -123,6 +130,7 @@ const Content = () => {
           fill: false,
         },
         {
+          type: "line",
           label: 'Recovered',
           data: timelineData.map((d: CaseSummary) => d.recovered),
           backgroundColor: 'rgb(39, 233, 0)',
@@ -130,10 +138,19 @@ const Content = () => {
           fill: false,
         },
         {
+          type: "line",
           label: 'Deaths',
           data: timelineData.map((d: CaseSummary) => d.deaths),
           backgroundColor: 'rgb(255, 38, 0)',
           borderColor: 'rgb(255, 38, 0)',
+          fill: false,
+        },
+        {
+          type: "bar",
+          label: 'Daily Growth',
+          data: caseGrowth,
+          backgroundColor: 'rgba(255, 255, 255, 0.4)',
+          borderColor: 'rgba(255, 255, 255, 0.4',
           fill: false,
         }
       ]
@@ -229,7 +246,7 @@ const Content = () => {
           epid.gov.lk/
           </a>
       </div>
-      <Chart width="" type="line" data={data} options={timelineChartOptions} />
+      <Chart width="" data={data} options={timelineChartOptions} />
     </>
   }
 
@@ -274,9 +291,24 @@ const Content = () => {
           <h1>Sri Lankan Covid-19 Outbreak Status</h1>
           <p>
             Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}<br />
-            Data source: <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a>
+            <span className="source">
+              <span className="mobile">
+                Source:&nbsp;
+                <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">
+                  HPB
+                </a>
+              </span>
+              <span className="full">
+                Source:&nbsp;
+                <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">
+                  HPB | Live updates on New Coronavirus (COVID-19) outbreak
+                </a>
+              </span>
+            </span>
           </p>
-          <DevDetail />
+          <small>
+            <DevDetail />
+          </small>
           {/* <div className="data-panel row special-box">
             <div className="column-4">සුභ අලුත් අවුරුද්දක් වේවා!</div>
             <div className="column-4">இனிய புத்தாண்டு நாள் வாழ்த்துக்கள்!</div>
@@ -324,8 +356,24 @@ const Content = () => {
           <div className="header-row">
             <h1>Global Covid-19 Outbreak Status</h1>
             <p>
-              Data sources: <br /> <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">HPB | Live updates on New Coronavirus (COVID-19) outbreak</a> <br />
-              <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
+
+              <span className="source">
+                <span className="mobile">
+                  Sources:&nbsp;
+                  <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">
+                    HPB
+                </a>, <br />
+                  <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">
+                    postman - Covid19 API
+                </a>
+                </span>
+                <span className="full">
+                  Sources:&nbsp;
+                  <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">
+                    HPB | Live updates on New Coronavirus (COVID-19) outbreak</a> , <br />
+                  <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
+                </span>
+              </span>
             </p>
           </div>
           <div className="data-panel">

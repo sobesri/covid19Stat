@@ -65,8 +65,8 @@ const Global = (props: Props) => {
           label: 'Local Cases',
           data: [
             summary.TotalConfirmed - summary.TotalRecovered - summary.TotalDeaths,
+            summary.TotalRecovered,
             summary.TotalDeaths,
-            summary.TotalRecovered
           ],
           backgroundColor: [
             'rgb(0, 119, 255)',
@@ -90,12 +90,12 @@ const Global = (props: Props) => {
           <Col>{(summary.TotalConfirmed - summary.TotalRecovered - summary.TotalDeaths).toLocaleString()} ( New: {summary.NewConfirmed.toLocaleString()} )</Col>
         </Row>
         <Row>
-          <Col md={6} xs={6}>Total Deaths: </Col>
-          <Col>{summary.TotalDeaths.toLocaleString()} ( New: {summary.NewDeaths.toLocaleString()} )</Col>
-        </Row>
-        <Row>
           <Col md={6} xs={6}>Total Recovered: </Col>
           <Col>{summary.TotalRecovered.toLocaleString()} ( New: {summary.NewRecovered.toLocaleString()} )</Col>
+        </Row>
+        <Row>
+          <Col md={6} xs={6}>Total Deaths: </Col>
+          <Col>{summary.TotalDeaths.toLocaleString()} ( New: {summary.NewDeaths.toLocaleString()} )</Col>
         </Row>
       </div>
     </>

@@ -8,6 +8,25 @@
   }
 }
 
+.source {
+  .mobile {
+    display: none;
+  }
+
+
+  @media screen and (max-width: 600px) {
+    .full {
+      display: none;
+    }
+
+    .mobile {
+      padding: 10px 0px 0px;
+      display: block;
+    }
+
+  }
+}
+
 .dev-detail {
   background: black;
   padding: 10px 200px;
@@ -37,6 +56,12 @@
 
   @media screen and (max-width: 850px) {
     padding: 10px;
+    font-size: small;
+    color: rgba(white, 0.6);
+
+    i {
+      color: rgba(white, 0.6);
+    }
   }
 }
 
@@ -55,6 +80,15 @@
 
   @media screen and (max-width: 600px) {
     margin: 0px 10px 10px;
+
+    h1 {
+      font-size: 20px;
+    }
+
+    p {
+      color: rgba(white, 0.6);
+      font-size: small;
+    }
   }
 }
 
@@ -83,6 +117,10 @@
   }
 
   @media screen and (max-width: 600px) {
+
+    h2 {
+      font-size: large;
+    }
 
     .column {
       padding: 0px 5%;

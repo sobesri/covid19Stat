@@ -7,7 +7,6 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import { Chart } from 'primereact/chart';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col, Input } from 'reactstrap';
-import moment from 'moment';
 
 const chartOptions = {
   maintainAspectRatio: true,
@@ -37,7 +36,6 @@ const Global = (props: Props) => {
 
   const [filteredContents, setContents] = useState<CountrySummaryDto[]>();
   const [selectedSummary, setSelectedSummary] = useState<CountrySummaryDto>();
-  const [updatedDate, setUpdatedDate] = useState(new Date());
 
 
   const compare = (a: CountrySummaryDto, b: CountrySummaryDto) => {
@@ -104,7 +102,6 @@ const Global = (props: Props) => {
   useEffect(() => {
     let data = props.data.Countries.filter((d: CountrySummaryDto) => d.TotalConfirmed > 0)
     setContents(data.sort(compare));
-    setUpdatedDate(props.data.Date);
   }, [props.data])
 
   const openSummaryModal = (val: CountrySummaryDto) => setSelectedSummary(val);
@@ -113,9 +110,6 @@ const Global = (props: Props) => {
     <>
       <div className="header-row header">
         <h3>Outbreak summaries across the world</h3>
-        <p>
-          Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}
-        </p>
       </div>
       <Row>
         <Col md={3} xs={0}></Col>

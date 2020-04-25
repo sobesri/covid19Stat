@@ -20,9 +20,30 @@ export interface Full_response_data extends Response_data {
 export interface Full_response_data_global {
   Countries: CountrySummaryDto[];
   Date: Date;
+  Global: SummaryDto;
 }
 
-export interface CountrySummaryDto {
+export interface SummaryDto {
+  NewConfirmed: number,
+  NewDeaths: number,
+  NewRecovered: number,
+  TotalConfirmed: number,
+  TotalDeaths: number,
+  TotalRecovered: number
+}
+
+export interface LatLng {
+  lat: number,
+  lng: number
+}
+
+export interface DistrictSummaryDto {
+  District: string,
+  LatLng: LatLng,
+  Cases: number
+}
+
+export interface CountrySummaryDto extends SummaryDto {
   Country: string,
   NewConfirmed: number,
   NewDeaths: number,

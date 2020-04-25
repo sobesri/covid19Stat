@@ -1,0 +1,18 @@
+#heat-map {
+  height: 800px;
+
+  @media screen and (max-width: 600px) {
+    height: 500px;
+    padding: 10px;
+  }
+}
+
+.legend {
+  font-size: 14px;
+  padding: 20px 10px 0px;
+
+  @media screen and (max-width: 600px) {
+    font-size: 12px;
+    padding: 10px;
+  }
+}

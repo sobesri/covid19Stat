@@ -11,13 +11,23 @@ var instanceGlobal = axios.create({
   baseURL: 'https://api.covid19api.com/'
 })
 
+var instanceDistrictsMap = axios.create({
+  baseURL: 'https://raw.githubusercontent.com/arimacdev/covid19-srilankan-data/master/Districts'
+})
+
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';
 
 export const apiService = {
   get,
   getStatistics_HPB,
-  getStatistics_Global
+  getStatistics_Global,
+  getDistricts_map,
+}
+
+function getDistricts_map() {
+  return get<string>(instanceDistrictsMap, '', 'districts_lk.csv', [])
+    .then((res: any) => res);
 }
 
 function getStatistics_HPB() {

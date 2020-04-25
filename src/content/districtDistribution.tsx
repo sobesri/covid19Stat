@@ -68,8 +68,8 @@ const District = () => {
     };
 
     let chartOptions = {
-      maintainAspectRatio: true,
-      aspectRatio: 0.7,
+      responsize: true,
+      aspectRatio: window.innerWidth > 600 ? 1 : 0.7,
       legend: {
         display: false,
         labels: {

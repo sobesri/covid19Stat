@@ -46,6 +46,7 @@ const District = () => {
 
         dataArr = dataArr.filter((v: LatLng) => v.lat > 0 && v.lng > 0);
 
+
         setData(dataArr);
       })
     // eslint-disable-next-line
@@ -142,7 +143,8 @@ const District = () => {
                   // required
                   options={{
                     data: data.map((v: LatLng) => new google.maps.LatLng(v)),
-                    radius: 45
+                    radius: 60,
+                    maxIntensity: 40
                   }}
                   data={data.map((v: LatLng) => new google.maps.LatLng(v))}
                 />

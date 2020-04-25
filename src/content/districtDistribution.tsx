@@ -104,7 +104,7 @@ const District = () => {
   return isLoaded ? <>
     <div>
       <div className="header-row">
-        <h2>Heat map showing the spread of Covid-19 in Sri Lanka</h2>
+        <h2>Nationwide Outbreak Summary - Sri Lanka</h2>
         <p>
           Displayed data may have a delay. <br />
           <span className="source">

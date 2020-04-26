@@ -35,6 +35,8 @@ const Content = () => {
   useLayoutEffect(() => {
 
     const handleResize = () => {
+      console.log('resize');
+
       window.location.reload(false);
     }
     window.addEventListener('resize', handleResize);

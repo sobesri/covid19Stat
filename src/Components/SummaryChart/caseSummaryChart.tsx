@@ -26,9 +26,9 @@ const CaseSummaryChart = ({ summary, type, width }: Props) => {
           deaths
         ],
         backgroundColor: [
-          'rgb(0, 119, 255)',
-          'rgb(39, 233, 0)',
-          'rgb(255, 38, 0)',
+          '#3498db',
+          '#2ecc71',
+          '#e74c3c',
         ],
         borderWidth: 0
       }

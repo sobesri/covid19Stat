@@ -188,16 +188,16 @@
     box-shadow: 0px 0px 5px rgba(white, 0.4);
 
     &.active {
-      box-shadow: 0px 0px 5px rgba(rgb(0, 119, 255), 0.6);
+      box-shadow: 0px 0px 5px rgba(#3498db, 0.6);
     }
 
     &.recovered {
-      box-shadow: 0px 0px 5px rgba(rgb(39, 233, 0), 0.6);
+      box-shadow: 0px 0px 5px rgba(#2ecc71, 0.6);
 
     }
 
     &.deaths {
-      box-shadow: 0px 0px 5px rgba(rgb(255, 38, 0), 0.6);
+      box-shadow: 0px 0px 5px rgba(#e74c3c, 0.6);
 
     }
   }

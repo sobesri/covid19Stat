@@ -14,19 +14,19 @@ const GlobalSummaryChart = ({ summaries }: Props) => {
       {
         label: 'Active',
         data: summaries.map((d: GlobalSummary) => d.active),
-        backgroundColor: 'rgb(0, 119, 255)',
+        backgroundColor: '#3498db',
         borderWidth: 0
       },
       {
         label: 'Recovered',
         data: summaries.map((d: GlobalSummary) => d.recovered),
-        backgroundColor: 'rgb(39, 233, 0)',
+        backgroundColor: '#2ecc71',
         borderWidth: 0
       },
       {
         label: 'Deaths',
         data: summaries.map((d: GlobalSummary) => d.deaths),
-        backgroundColor: 'rgb(255, 38, 0)',
+        backgroundColor: '#e74c3c',
         borderWidth: 0
       }
     ]

@@ -33,12 +33,16 @@ const Content = () => {
   }, [time]);
 
   useLayoutEffect(() => {
+    var width1 = window.innerWidth;
 
     const handleResize = () => {
-      console.log('resize');
-
-      window.location.reload(false);
+      var width2 = window.innerWidth;
+      if (width1 !== width2) {
+        width1 = window.innerWidth;
+        window.location.reload(false);
+      }
     }
+
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);

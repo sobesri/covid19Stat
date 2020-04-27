@@ -3,6 +3,7 @@ import { GoogleMap, useLoadScript, HeatmapLayer } from '@react-google-maps/api'
 import { apiService } from '../services/api.service';
 import { DistrictSummaryDto, LatLng } from '../types';
 import { Chart } from 'primereact/chart';
+import { config } from '../config';
 
 const sriLanka = { lat: 7.8731, lng: 80.7718 };
 const DEFAULT_COORDINATES = { lat: 0, lng: 0 };
@@ -13,7 +14,7 @@ const District = () => {
 
   const libs = ['places', 'visualization', 'drawing', 'geometry'];
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyBp7YNivdQzm75Jk4bXgnfk3Mlr-btC0X4",
+    googleMapsApiKey: config.GOOGLE_MAPS_API_KEY,
     libraries: libs,
   })
 

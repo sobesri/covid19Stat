@@ -144,7 +144,7 @@ const District = () => {
                   // required
                   options={{
                     data: data.map((v: LatLng) => new google.maps.LatLng(v)),
-                    radius: 60,
+                    radius: 40,
                     maxIntensity: 40
                   }}
                   data={data.map((v: LatLng) => new google.maps.LatLng(v))}

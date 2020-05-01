@@ -377,7 +377,17 @@ const Content = () => {
           </div>
         </>
       }
-      {!globalData ? <></> :
+      {!globalData ?
+        <>
+          <div className="padding-top-lg">
+          </div>
+          <div>
+            <div className="header-row">
+              Error 404: Global Data not found
+            </div>
+          </div>
+        </>
+        :
         <div id="global">
           <div className="padding-top-lg">
           </div>

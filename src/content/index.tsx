@@ -464,19 +464,16 @@ const Content = () => {
         title="Go to top"
       >
         Top
-    </Button>
-      {
-        globalData &&
-        <Button
-          className="floating-btn"
-          type="button"
-          id="goToGlobalButton"
-          onClick={onGoToGlobalClicked}
-          title="Go to Global"
-        >
-          Global
-        </Button>
-      }
+      </Button>
+      <Button
+        className="floating-btn"
+        type="button"
+        id="goToGlobalButton"
+        onClick={onGoToGlobalClicked}
+        title="Go to Global"
+      >
+        Global
+      </Button>
       <Button
         className="floating-btn"
         type="button"

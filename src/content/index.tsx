@@ -383,7 +383,7 @@ const Content = () => {
           </div>
           <div>
             <div className="header-row">
-              Error 404: Global Data not found
+              Global Data not found
             </div>
           </div>
         </>

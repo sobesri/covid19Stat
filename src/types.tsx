@@ -143,6 +143,6 @@ export const LOCAL_TIMELINE: CaseSummary[] = [
   { date: new Date(2020, 3, 27), recovered: 126, deaths: 7, confirmed: 588 },
   { date: new Date(2020, 3, 28), recovered: 134, deaths: 7, confirmed: 619 },
   { date: new Date(2020, 3, 29), recovered: 136, deaths: 7, confirmed: 649 },
-  { date: new Date(2020, 3, 30), recovered: 154, deaths: 7, confirmed: 663 },
-  { date: new Date(2020, 4, 1), recovered: 154, deaths: 7, confirmed: 662 },
+  { date: new Date(2020, 3, 30), recovered: 154, deaths: 7, confirmed: 665 },
+  { date: new Date(2020, 4, 1), recovered: 154, deaths: 7, confirmed: 665 },
 ];

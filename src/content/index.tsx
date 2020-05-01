@@ -375,20 +375,16 @@ const Content = () => {
           <div id="district">
             <District />
           </div>
-          {!globalData ?
-            <>
-              <div className="padding-top-lg">
-              </div>
+          <div id="global">
+            <div className="padding-top-lg">
+            </div>
+            {!globalData ?
               <div>
                 <div className="header-row">
                   Global Data not found
-            </div>
+                </div>
               </div>
-            </>
-            :
-            <div id="global">
-              <div className="padding-top-lg">
-              </div>
+              :
               <div>
                 <div className="header-row">
                   <h1>Global Covid-19 Outbreak Status</h1>
@@ -449,8 +445,8 @@ const Content = () => {
                   </div>
                 </div>
               </div>
-            </div >
-          }
+            }
+          </div >
         </>
       }
       <Button

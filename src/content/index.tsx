@@ -105,8 +105,6 @@ const Content = () => {
 
     apiService.getStatistics_Global()
       .then((res: Full_response_data_global) => {
-
-
         let countries = res.Countries;
 
         countries = countries.filter((item: CountrySummaryDto, index: number) => {
@@ -307,138 +305,144 @@ const Content = () => {
     return 0;
   }
 
-  return !globalData || !data ? <></> :
+  return (
     <>
-      <div id="local">
-        <div className="header-row">
-          <h1>Sri Lankan Covid-19 Outbreak Status</h1>
-          <p>
-            Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}<br />
-            <span className="source">
-              <span className="mobile">
-                Source:&nbsp;
+      {!data ? <></> :
+        <>
+          <div id="local">
+            <div className="header-row">
+              <h1>Sri Lankan Covid-19 Outbreak Status</h1>
+              <p>
+                Updated at {moment.utc(new Date(updatedDate)).local().format('ddd, MMM D hh:mm:ss a')}<br />
+                <span className="source">
+                  <span className="mobile">
+                    Source:&nbsp;
                 <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">
-                  HPB
+                      HPB
                 </a>
-              </span>
-              <span className="full">
-                Source:&nbsp;
+                  </span>
+                  <span className="full">
+                    Source:&nbsp;
                 <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">
-                  HPB | Live updates on New Coronavirus (COVID-19) outbreak
+                      HPB | Live updates on New Coronavirus (COVID-19) outbreak
                 </a>
-              </span>
-            </span>
-          </p>
-          <small>
-            <DevDetail />
-          </small>
-          {/* <div className="data-panel row special-box">
+                  </span>
+                </span>
+              </p>
+              <small>
+                <DevDetail />
+              </small>
+              {/* <div className="data-panel row special-box">
             <div className="column-4">සුභ අලුත් අවුරුද්දක් වේවා!</div>
             <div className="column-4">இனிய புத்தாண்டு நாள் வாழ்த்துக்கள்!</div>
             <div className="column-4">Happy Sinhala and Tamil New Year!</div>
             <div className="column-wide"><strong>Gone, but not forgotten. 21-04-2019 </strong><i className="fa fa-fire"></i></div>
           </div> */}
-        </div>
-        <div className="data-panel">
-          <div className="row border-box-sm">
-            <div className="column">
-              <div className='chart padding-top-lg'>
-                <CaseSummaryChart type="doughnut" summary={{ confirmed: data.local_total_cases, deaths: data.local_deaths, recovered: data.local_recovered }} />
-              </div>
-              <div className="row-panel padding-top-lg">
-                <h2>Total Cases: {data && data.local_total_cases.toLocaleString()}</h2>
-              </div>
-              <div className="row">
-                <div className="column-4 data-border active">Active: {(data.local_total_cases - data.local_recovered - data.local_deaths).toLocaleString()}</div>
-                <div className="column-4 data-border recovered">Recovered: {data.local_recovered.toLocaleString()}</div>
-                <div className="column-4 data-border deaths">Deaths: {data.local_deaths.toLocaleString()}</div>
-              </div>
-              <div className="row-panel">
-                <div className="updates data-border">
-                  Updates <span>: </span>
+            </div>
+            <div className="data-panel">
+              <div className="row border-box-sm">
+                <div className="column">
+                  <div className='chart padding-top-lg'>
+                    <CaseSummaryChart type="doughnut" summary={{ confirmed: data.local_total_cases, deaths: data.local_deaths, recovered: data.local_recovered }} />
+                  </div>
+                  <div className="row-panel padding-top-lg">
+                    <h2>Total Cases: {data && data.local_total_cases.toLocaleString()}</h2>
+                  </div>
+                  <div className="row">
+                    <div className="column-4 data-border active">Active: {(data.local_total_cases - data.local_recovered - data.local_deaths).toLocaleString()}</div>
+                    <div className="column-4 data-border recovered">Recovered: {data.local_recovered.toLocaleString()}</div>
+                    <div className="column-4 data-border deaths">Deaths: {data.local_deaths.toLocaleString()}</div>
+                  </div>
+                  <div className="row-panel">
+                    <div className="updates data-border">
+                      Updates <span>: </span>
                   New cases : <strong>{data.local_new_cases.toLocaleString()}</strong> <span>- </span>
                   New deaths : <strong>{data.local_new_deaths.toLocaleString()}</strong> <span>- </span>
                   In Hospital : <strong>{data.local_total_number_of_individuals_in_hospitals.toLocaleString()}</strong>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="column padding-top-lg">
-              <div className='chart line'>
-                {generateTimeLineChartModal()}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="padding-top-xlg">
-        </div>
-      </div>
-      <div id="district">
-        <District />
-      </div>
-      <div id="global">
-        <div className="padding-top-lg">
-        </div>
-        <div>
-          <div className="header-row">
-            <h1>Global Covid-19 Outbreak Status</h1>
-            <p>
-              Updated at {moment.utc(new Date(globalData.Date)).local().format('ddd, MMM D hh:mm:ss a')}<br />
-              <span className="source">
-                <span className="mobile">
-                  Sources:&nbsp;
-                  {/* <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">
-                    HPB
-                </a>, <br /> */}
-                  <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">
-                    postman - Covid19 API
-                </a>
-                </span>
-                <span className="full">
-                  Sources:&nbsp;
-                  {/* <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">
-                    HPB | Live updates on New Coronavirus (COVID-19) outbreak</a> , <br /> */}
-                  <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
-                </span>
-              </span>
-            </p>
-          </div>
-          <div className="data-panel">
-            <div className="row border-box-sm">
-              <div className="column">
-                <div className='row-panel chart'>
-                  <CaseSummaryChart type="doughnut" summary={{ confirmed: globalData.Global.TotalConfirmed, deaths: globalData.Global.TotalDeaths, recovered: globalData.Global.TotalRecovered }} />
-                </div>
-                <div className="row-panel padding-top-lg">
-                  <h2>Global Cases: {globalData.Global.TotalConfirmed.toLocaleString()}</h2>
-                </div>
-                <div className="row">
-                  <div className="column-4 data-border active">Active: {(globalData.Global.TotalConfirmed - globalData.Global.TotalRecovered - globalData.Global.TotalDeaths).toLocaleString()}</div>
-                  <div className="column-4 data-border recovered">Recovered: {globalData.Global.TotalRecovered.toLocaleString()}</div>
-                  <div className="column-4 data-border deaths">Deaths: {globalData.Global.TotalDeaths.toLocaleString()}</div>
-                </div>
-                <div className="row-panel">
-                  <div className="updates data-border">
-                    Updates <span>: </span>
-                    New cases : <strong>{globalData.Global.NewConfirmed.toLocaleString()}</strong> <span>- </span>
-                    New Recovered : <strong>{globalData.Global.NewRecovered.toLocaleString()}</strong> <span>- </span>
-                    New deaths : <strong>{globalData.Global.NewDeaths.toLocaleString()}</strong>
+                <div className="column padding-top-lg">
+                  <div className='chart line'>
+                    {generateTimeLineChartModal()}
                   </div>
                 </div>
               </div>
-              <div className="column chart-bar">
-                <GlobalSummaryChart summaries={getGlobalSummariesChartData()} />
+            </div>
+            <div className="padding-top-xlg">
+            </div>
+          </div>
+          <div id="district">
+            <District />
+          </div>
+        </>
+      }
+      {!globalData ? <></> :
+        <div id="global">
+          <div className="padding-top-lg">
+          </div>
+          <div>
+            <div className="header-row">
+              <h1>Global Covid-19 Outbreak Status</h1>
+              <p>
+                Updated at {moment.utc(new Date(globalData.Date)).local().format('ddd, MMM D hh:mm:ss a')}<br />
+                <span className="source">
+                  <span className="mobile">
+                    Sources:&nbsp;
+                  {/* <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">
+                    HPB
+                </a>, <br /> */}
+                    <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">
+                      postman - Covid19 API
+                </a>
+                  </span>
+                  <span className="full">
+                    Sources:&nbsp;
+                  {/* <a href="https://hpb.health.gov.lk/" target="_blank" rel="noopener noreferrer">
+                    HPB | Live updates on New Coronavirus (COVID-19) outbreak</a> , <br /> */}
+                    <a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" rel="noopener noreferrer">Coronavirus COVID19 API</a>
+                  </span>
+                </span>
+              </p>
+            </div>
+            <div className="data-panel">
+              <div className="row border-box-sm">
+                <div className="column">
+                  <div className='row-panel chart'>
+                    <CaseSummaryChart type="doughnut" summary={{ confirmed: globalData.Global.TotalConfirmed, deaths: globalData.Global.TotalDeaths, recovered: globalData.Global.TotalRecovered }} />
+                  </div>
+                  <div className="row-panel padding-top-lg">
+                    <h2>Global Cases: {globalData.Global.TotalConfirmed.toLocaleString()}</h2>
+                  </div>
+                  <div className="row">
+                    <div className="column-4 data-border active">Active: {(globalData.Global.TotalConfirmed - globalData.Global.TotalRecovered - globalData.Global.TotalDeaths).toLocaleString()}</div>
+                    <div className="column-4 data-border recovered">Recovered: {globalData.Global.TotalRecovered.toLocaleString()}</div>
+                    <div className="column-4 data-border deaths">Deaths: {globalData.Global.TotalDeaths.toLocaleString()}</div>
+                  </div>
+                  <div className="row-panel">
+                    <div className="updates data-border">
+                      Updates <span>: </span>
+                    New cases : <strong>{globalData.Global.NewConfirmed.toLocaleString()}</strong> <span>- </span>
+                    New Recovered : <strong>{globalData.Global.NewRecovered.toLocaleString()}</strong> <span>- </span>
+                    New deaths : <strong>{globalData.Global.NewDeaths.toLocaleString()}</strong>
+                    </div>
+                  </div>
+                </div>
+                <div className="column chart-bar">
+                  <GlobalSummaryChart summaries={getGlobalSummariesChartData()} />
+                </div>
+              </div>
+            </div>
+            <div className="data-panel">
+              <div className="padding-top-md">
+              </div>
+              <div className="row-panel border-box-sm">
+                {globalData && <Global data={globalData} />}
               </div>
             </div>
           </div>
-          <div className="data-panel">
-            <div className="padding-top-md">
-            </div>
-            <div className="row-panel border-box-sm">
-              {globalData && <Global data={globalData} />}
-            </div>
-          </div>
-        </div>
-      </div >
+        </div >
+      }
       <Button
         className="floating-btn"
         type="button"
@@ -474,6 +478,8 @@ const Content = () => {
           </i>
       </Button>
     </>
+  );
+
 }
 
 export default Content;

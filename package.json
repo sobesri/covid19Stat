@@ -9,6 +9,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@types/chart.js": "^2.9.16",
+    "@types/googlemaps": "^3.39.4",
     "@types/react-select": "^3.0.11",
     "@types/reactstrap": "^8.4.2",
     "axios": "^0.19.2",

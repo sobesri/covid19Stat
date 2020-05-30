@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Full_response_data_global, CountrySummaryDto } from '../../types';
+import { Chart } from 'primereact/chart';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import { Chart } from 'primereact/chart';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col, Input } from 'reactstrap';
+
+import { Full_response_data_global, CountrySummaryDto } from '../../types';
 
 const chartOptions = {
   maintainAspectRatio: true,

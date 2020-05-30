@@ -3,8 +3,8 @@ import { apiService } from '../services/api.service';
 import { Response_data, Full_response_data, LOCAL_TIMELINE, CaseSummary, Full_response_data_global, CountrySummaryDto, GlobalSummary } from '../types';
 import { Button } from 'reactstrap';
 import { Chart } from 'primereact/chart';
-
 import moment from 'moment';
+
 import Global from '../Components/Global';
 import CaseSummaryChart from '../Components/SummaryChart/caseSummaryChart';
 import GlobalSummaryChart from '../Components/SummaryChart/globalSummaryChart';
@@ -257,7 +257,7 @@ const Content = () => {
     return <>
       <div className='title'>
         <strong>Progression of the outbreak</strong><br />
-        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 4, 29, 20, 5, 0)).local().format('ddd, MMM D hh:mm a')}</strong></small><br />
+        <small>Data updated manually, last updated at <strong>{moment.utc(new Date(2020, 4, 30, 11, 39, 0)).local().format('ddd, MMM D hh:mm a')}</strong></small><br />
           Source:&nbsp;
         <a
           href="http://www.epid.gov.lk/web/index.php?option=com_content&view=article&id=225&Itemid=518&lang=en"

@@ -8838,10 +8838,10 @@ primeicons@^2.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-2.0.0.tgz#ec3e5a8d4d04a09309225a5a57deb911e08dc0d3"
   integrity sha512-GJTCeMSQU8UU1GqbsaDrg/IH+b/vSinJQl52NVpdJ7sShYLZA8Eq6jLF48Ye3N/dQloGrE07i7XsZvxQ9pNbqg==
 
-primereact@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/primereact/-/primereact-4.1.2.tgz#db9a78cb4742aee28dfc4c863c7af3ba5c08a565"
-  integrity sha512-NZ9DmsOWzek05RzS54DtsM9b2T65rRyTxNo/EllFyLW3qeKg96Eci5HRlyO1KHu7233IHX6gjJp5JrChS01p8g==
+primereact@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/primereact/-/primereact-4.2.1.tgz#535f1baf3729490d33798bb3f7cce954920329b9"
+  integrity sha512-i8+ZvbbbaZl0gNTCmEkDyCUStBu6sWNjM5wypTKmP5YT0DAL1sLdqiQKQrZGh4elDDMDYJ2Mz6wCjZS34nwcMw==
 
 private@^0.1.8:
   version "0.1.8"

@@ -13,7 +13,7 @@
     "@types/react-select": "^3.0.11",
     "@types/reactstrap": "^8.4.2",
     "axios": "^0.19.2",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "gh-pages": "^2.2.0",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
